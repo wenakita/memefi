@@ -33,7 +33,14 @@ function Home() {
             <div className="flex justify-start gap-2 mt-3">
               <Button className="border rounded-xl bg-stone-900">
                 <a href="https://warpcast.com/~/channel/goddog" target="_blank">
-                  /Goddog
+                  <span className="flex justify-start gap-2">
+                    <img
+                      src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-white.png?raw=true"
+                      alt=""
+                      style={{ maxWidth: "15%" }}
+                    />
+                    <p className="mt-1 text-xs">/Goddog</p>
+                  </span>
                 </a>
               </Button>
               <Button className="border rounded-xl bg-stone-900">
@@ -44,6 +51,23 @@ function Home() {
                   Buy Now
                 </a>
               </Button>
+            </div>
+            <div className="flex justify-center mt-4 text-xs gap-2 underline text-slate-400">
+              <a href="https://linktr.ee/goddog69" target="_blank">
+                LinkTree
+              </a>
+              <a href="https://warpcast.com/~/channel/goddog" target="_blank">
+                Warpcast
+              </a>
+              <a href="https://t.me/goddog_official" target="_blank">
+                Telegram
+              </a>
+              <a
+                href="https://interchain.axelar.dev/base/0xDDf7d080C82b8048BAAe54e376a3406572429b4e"
+                target="_blank"
+              >
+                Interchain
+              </a>
             </div>
           </CardDescription>
         </CardHeader>
