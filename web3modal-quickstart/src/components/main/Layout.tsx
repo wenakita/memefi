@@ -20,7 +20,7 @@ function Layout() {
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <Avatar>
-                    <AvatarImage src="../../../public/GoddogwifShadow.webp" />
+                    <AvatarImage src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46" />
                   </Avatar>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-80 bg-stone-900">
