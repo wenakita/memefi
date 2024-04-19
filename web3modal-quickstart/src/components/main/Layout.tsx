@@ -16,7 +16,7 @@ function Layout() {
       <center>
         <NavigationMenu className="border border-slate-400 p-3 bg-black rounded-xl">
           <NavigationMenuList className="">
-            <NavigationMenuItem className="">
+            <NavigationMenuItem className="me-3">
               <HoverCard>
                 <HoverCardTrigger asChild>
                   <Avatar>
@@ -46,10 +46,8 @@ function Layout() {
                 </HoverCardContent>
               </HoverCard>
             </NavigationMenuItem>
-            <NavigationMenuItem className="">
+            <NavigationMenuItem className="flex gap-3">
               <w3m-network-button />
-            </NavigationMenuItem>
-            <NavigationMenuItem>
               <w3m-button />
             </NavigationMenuItem>
           </NavigationMenuList>
