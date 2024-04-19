@@ -1,0 +1,37 @@
+{
+	"name": "react-starter-template",
+	"version": "0.1.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@radix-ui/react-avatar": "^1.0.4",
+		"@radix-ui/react-hover-card": "^1.0.7",
+		"@radix-ui/react-navigation-menu": "^1.1.4",
+		"@radix-ui/react-slot": "^1.0.2",
+		"@web3modal/wagmi": "3.5.7",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.0",
+		"lucide-react": "^0.371.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.22.3",
+		"tailwind-merge": "^2.2.2",
+		"tailwindcss-animate": "^1.0.7",
+		"viem": "^1.13.1",
+		"wagmi": "^1.4.2"
+	},
+	"devDependencies": {
+		"@types/react": "^18.0.28",
+		"@types/react-dom": "^18.0.11",
+		"@vitejs/plugin-react": "^4.0.0",
+		"autoprefixer": "^10.4.19",
+		"postcss": "^8.4.38",
+		"tailwindcss": "^3.4.3",
+		"typescript": "^5.0.4",
+		"vite": "^5.0.0"
+	}
+}
