@@ -16,7 +16,7 @@ function Home() {
           <CardTitle className="">
             <span>
               <img
-                src="/public/GoddogwifShadow.webp"
+                src="../../../public/GoddogwifShadow.webp"
                 alt=""
                 style={{ maxWidth: "30%" }}
               />
