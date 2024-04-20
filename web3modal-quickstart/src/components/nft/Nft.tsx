@@ -17,17 +17,23 @@ import {
 } from "@/components/ui/card";
 import Alerts from "../main/Alerts";
 import { abi } from "@/abi/abi";
+
+interface NftData {
+  identifier: string;
+  image_url: string;
+  name: string;
+  description?: string; // Make description optional
+}
+
 function Nft() {
   const apiKey = process.env.OP_KEY || "";
   console.log(process.env.OP_KEY);
-  const [alert, setAlert] = useState(undefined);
-  const [nfts, setNfts] = useState([]);
+  const [alert, setAlert] = useState<{
+    title: string;
+    description: string;
+  } | null>(null);
+  const [nfts, setNfts] = useState<NftData[]>([]);
   const { address } = useAccount();
-  // const result = useReadContract({
-  //   abi,
-  //   address: "0x7F35Af9B5310483c8Ad789277c6e86dc3D329D4F",
-  //   functionName: "totalSupply",
-  // });
 
   const { data: contractReader, isError } = useContractRead({
     address: "0x7F35Af9B5310483c8Ad789277c6e86dc3D329D4F",
@@ -43,7 +49,6 @@ function Nft() {
 
   const { data, isSuccess, write: mintNft } = useContractWrite(config);
 
-  // 3652122689914635ac7806c7547255fe
   useEffect(() => {
     const options = {
       method: "GET",
@@ -64,7 +69,7 @@ function Nft() {
       });
   }, []);
 
-  function handleMint(nftId) {
+  function handleMint(nftId: string) {
     console.log(nftId);
     if (!address) {
       setAlert({
@@ -80,30 +85,19 @@ function Nft() {
     }
     console.log(config);
   }
-  function completeTransaction(nftId) {
+
+  function completeTransaction(nftId: string) {
     console.log(nftId);
     console.log(address);
-    mintNft({
-      minter: address,
-      tokenId: nftId,
-      quantity: 1,
-      value: 0.00069,
-    })
-      .then(function (tx) {
-        console.log("tx sent: ", tx);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   return (
     <div className="mt-10 container flex justify-center">
       <div className="grid grid-rows-1">
         <div className="flex justify-center mb-4">
-          {alert ? (
+          {alert && (
             <Alerts title={alert.title} description={alert.description} />
-          ) : null}
+          )}
         </div>
         <div className="flex justify-center">
           <h1 className="underline bold font-bold">GodDog Collection:</h1>
@@ -111,9 +105,11 @@ function Nft() {
         <div className="flex justify-center mt-10">
           <div className="grid md:grid-cols-1 sm:grid-cols-1 gap-3">
             {nfts.map((nft) => {
+              if (!nft) return null; // Skip rendering if nft is null or undefined
+
               const currentNftSrc = nft.image_url;
               return (
-                <div key={nft}>
+                <div key={nft.identifier}>
                   <Card
                     style={{ width: "12rem" }}
                     className="rounded-xl bg-black border-slate-500"
@@ -124,12 +120,11 @@ function Nft() {
                         <h5 className="text-sm mt-2">{nft.name}</h5>
                       </CardTitle>
                       <CardDescription>
-                        <h5 className="text-xs mt-1">{nft.description}</h5>
+                        {nft.description && (
+                          <h5 className="text-xs mt-1">{nft.description}</h5>
+                        )}
                       </CardDescription>
                     </CardHeader>
-                    {/* <CardContent>
-                      <p>Card Content</p>
-                    </CardContent> */}
                     <CardFooter className="flex justify-center">
                       <Button
                         onClick={() => {
