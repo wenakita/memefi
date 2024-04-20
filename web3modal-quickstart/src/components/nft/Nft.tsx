@@ -103,7 +103,7 @@ function Nft() {
           <h1 className="underline bold font-bold">GodDog Collection:</h1>
         </div>
         <div className="flex justify-center mt-10">
-          <div className="grid md:grid-cols-1 sm:grid-cols-1 gap-3">
+          <div className="grid md:grid-cols-1 sm:grid-cols-1 gap-3 mb-10">
             {nfts.map((nft) => {
               if (!nft) return null; // Skip rendering if nft is null or undefined
 
