@@ -5,7 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { NavLink, useNavigate } from "react-router-dom";
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="mt-10 container flex justify-center">
       <Card
@@ -62,7 +65,14 @@ function Home() {
               <a href="https://t.me/goddog_official" target="_blank">
                 Telegram
               </a>
-              <a href="/nft">NFT Collection</a>
+              <a
+                href=""
+                onClick={() => {
+                  navigate("/nft");
+                }}
+              >
+                NFT Collection
+              </a>
             </div>
           </CardDescription>
         </CardHeader>
