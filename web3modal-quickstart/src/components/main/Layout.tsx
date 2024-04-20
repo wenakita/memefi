@@ -9,6 +9,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { NavLink } from "react-router-dom";
 
 import { Outlet } from "react-router-dom";
 function Layout() {
@@ -20,9 +21,11 @@ function Layout() {
             <NavigationMenuItem className="">
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <Avatar>
-                    <AvatarImage src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46" />
-                  </Avatar>
+                  <a href="/">
+                    <Avatar>
+                      <AvatarImage src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46" />
+                    </Avatar>
+                  </a>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-80 bg-black rounded-xl border-black">
                   <div className="flex justify-between space-x-4">

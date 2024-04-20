@@ -62,12 +62,7 @@ function Home() {
               <a href="https://t.me/goddog_official" target="_blank">
                 Telegram
               </a>
-              <a
-                href="https://debank.com/token/base/0xddf7d080c82b8048baae54e376a3406572429b4e/overview"
-                target="_blank"
-              >
-                Debank
-              </a>
+              <a href="/nft">NFT Collection</a>
             </div>
           </CardDescription>
         </CardHeader>
