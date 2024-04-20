@@ -71,7 +71,7 @@ function Home() {
                   navigate("/nft");
                 }}
               >
-                NFT Collection
+                NFT
               </a>
             </div>
           </CardDescription>
