@@ -63,10 +63,10 @@ function Home() {
                 Telegram
               </a>
               <a
-                href="https://interchain.axelar.dev/base/0xDDf7d080C82b8048BAAe54e376a3406572429b4e"
+                href="https://debank.com/token/base/0xddf7d080c82b8048baae54e376a3406572429b4e/overview"
                 target="_blank"
               >
-                Interchain
+                Debank
               </a>
             </div>
           </CardDescription>

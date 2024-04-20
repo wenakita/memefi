@@ -9,6 +9,7 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+
 import { Outlet } from "react-router-dom";
 function Layout() {
   return (
