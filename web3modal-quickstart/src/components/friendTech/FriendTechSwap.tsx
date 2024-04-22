@@ -90,10 +90,11 @@ function FriendTechSwap() {
   });
 
   useEffect(() => {
-    if (isShareBalanceLoaded) {
-      const shareBalanceConverted = Number(shareBalanceResult[0]);
+    if (isShareBalanceLoaded && Array.isArray(shareBalanceResult)) {
+      const shareBalanceConverted = Number(shareBalanceResult[0]).toString();
       setShareBalance(shareBalanceConverted);
     }
+
     const currentSupply = Number(supplyResults);
     console.log(currentSupply);
     const currentPrice = (currentSupply * currentSupply) / 16000;
