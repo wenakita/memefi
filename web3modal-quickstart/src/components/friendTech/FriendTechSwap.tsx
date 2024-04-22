@@ -164,7 +164,10 @@ function FriendTechSwap() {
     console.log("Selling: ", sellAmount);
     const sellAmountConverted = Number(sellAmount);
     unWrap?.({
-      args: ["0xE662B210d547966eb33b391b9A8292d2a87b5f69", sellAmountConverted],
+      args: [
+        " 0xE662B210d547966eb33b391b9A8292d2a87b5f69",
+        sellAmountConverted,
+      ],
     });
   }
   const txButtonLabel = shouldWrap === true ? "Wrap Token" : "Unwrap Token";
@@ -210,6 +213,7 @@ function FriendTechSwap() {
               } else if (shouldUnwrap) {
                 setSellAmount(e.target.value);
               }
+
               console.log(e.target.value);
             }}
           />
