@@ -54,7 +54,7 @@ const metadata = {
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 
-createWeb3Modal({ wagmiConfig, projectId, chains });
+createWeb3Modal({ wagmiConfig, projectId, chains, defaultChain: base });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

@@ -62,8 +62,13 @@ function Home() {
               <a href="https://warpcast.com/~/channel/goddog" target="_blank">
                 Warpcast
               </a>
-              <a href="https://t.me/goddog_official" target="_blank">
-                Telegram
+              <a
+                href=""
+                onClick={() => {
+                  navigate("/friend");
+                }}
+              >
+                Friend.Tech
               </a>
               <a
                 href=""
