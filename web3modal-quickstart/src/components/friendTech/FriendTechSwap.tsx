@@ -150,7 +150,6 @@ function FriendTechSwap() {
     const temp = String(finalyValue);
     console.log(temp);
     if (address) {
-      setAlertStatus(true);
       console.log(buyAmount);
 
       write({
@@ -161,15 +160,26 @@ function FriendTechSwap() {
         ],
         value: parseEther(temp),
       });
-      setAlert({
-        title: "Tx Submission",
-        description: "Submitting transaction on the contract",
-      });
+      if (mintSuccess) {
+        setAlertStatus(true);
+
+        setAlert({
+          title: "Submitting Transaction",
+          description: "Submitting transaction on the contract",
+        });
+      } else {
+        setAlertStatus(true);
+
+        setAlert({
+          title: "Tx Reverted",
+          description: "Transaction reverted for unknown reason",
+        });
+      }
     } else {
       setAlertStatus(true);
       setAlert({
-        title: "Tx Error",
-        description: "Insufficient amount to buy shares",
+        title: "Wallet Connection",
+        description: "Must connect wallet to buy shares",
       });
       console.log("invalid amount");
     }
@@ -206,81 +216,101 @@ function FriendTechSwap() {
   }
   console.log(address);
   return (
-    <div className="mt-10 container flex justify-center">
-      {isAlertActive ? (
-        <Alerts title={alert.title} description={alert.description} />
-      ) : null}
-      <div className="mt-5 border p-5 rounded-xl border-slate-500 bg-black">
-        <div className="mb-2">
-          <div className="flex justify-star mb-1">
-            <img
-              src="https://www.friend.tech/friendtechlogo.png"
-              alt=""
-              style={{ maxWidth: "12%" }}
+    <div className="container">
+      <div className="mt-10">
+        {isAlertActive ? (
+          <Alerts title={alert.title} description={alert.description} />
+        ) : null}
+      </div>
+      <div className="mt-10 container flex justify-center">
+        <div className="mt-5 border p-5 rounded-xl border-slate-500 bg-black">
+          <div className="mb-2">
+            <div className="flex justify-star mb-1">
+              <img
+                src="https://www.friend.tech/friendtechlogo.png"
+                alt=""
+                style={{ maxWidth: "12%" }}
+              />
+            </div>
+            <span className="text-yellow-400 font-mono">
+              <h1 className="text-xs mt-2">Mint NFT's of</h1>
+              <h1 className="text-xs">Friend.tech shares</h1>
+            </span>
+          </div>
+          <h1 className="text-xs">
+            {address
+              ? shouldWrap
+                ? "Buy Price: " + price + " ETH"
+                : "Sell price: 1" + "Share/" + price + " ETH "
+              : "Connect wallet to view share price"}
+          </h1>
+          <h1 className="" style={{ fontSize: "10px" }}>
+            (including fees)
+          </h1>
+          <div className="mb-2 mt-3 font-mono">
+            <label
+              htmlFor=""
+              className="font-light"
+              style={{ fontSize: "10px" }}
+            >
+              Amount:
+            </label>
+            <Input
+              type="text"
+              className="border-slate-500 rounded-xl"
+              onChange={(e) => {
+                if (shouldWrap) {
+                  setBuyAmount(e.target.value);
+                } else if (shouldUnwrap) {
+                  setSellAmount(e.target.value);
+                }
+
+                console.log(e.target.value);
+              }}
             />
           </div>
-          <span className="text-yellow-400 font-mono">
-            <h1 className="text-xs mt-2">Mint NFT's of</h1>
-            <h1 className="text-xs">Friend.tech shares</h1>
-          </span>
-        </div>
-        <h1 className="text-xs">
-          {shouldWrap
-            ? "Buy Price: " + price + " ETH"
-            : "Sell price: 1" + "Share/" + price + " ETH "}
-        </h1>
-        <h1 className="" style={{ fontSize: "10px" }}>
-          (including fees)
-        </h1>
-        <div className="mb-2 mt-3">
-          <label htmlFor="" className="text-xs font-light">
-            Amount:
-          </label>
-          <Input
-            type="text"
-            className="border-slate-500 rounded-xl"
-            onChange={(e) => {
-              if (shouldWrap) {
-                setBuyAmount(e.target.value);
-              } else if (shouldUnwrap) {
-                setSellAmount(e.target.value);
+          <div className="mt-3 text-xs font-mono">
+            <label htmlFor="" className="" style={{ fontSize: "10px" }}>
+              Recieve:
+            </label>
+            <Input
+              readOnly
+              className="mt-2 border-slate-500 rounded-xl bg-black"
+              value={
+                address
+                  ? shouldWrap
+                    ? Number(buyAmount) / Number(price)
+                    : Number(sellAmount) * Number(price)
+                  : undefined
               }
+            />
+          </div>
+          <div className="flex justify-end text-xs">
+            <p>
+              {address
+                ? shouldWrap
+                  ? "ETH Balance: " + balanceEth?.formatted
+                  : "Shares Balance: " + shareBalance
+                : null}
+            </p>
+          </div>
 
-              console.log(e.target.value);
-            }}
-          />
-          <Input
-            className="border-slate-500 rounded-xl mt-2"
-            defaultValue={
-              shouldWrap
-                ? Math.floor(Number(buyAmount) / price)
-                : sellAmount * price
-            }
-          />
-        </div>
-        <div className="flex justify-end text-xs">
-          <p>
-            {shouldWrap
-              ? "ETH Balance: " + balanceEth?.formatted
-              : "Shares Balance: " + shareBalance}
-          </p>
-        </div>
+          <div className="flex justify-center mt-8 gap-3">
+            <UpdateIcon
+              className="mt-2 hover:animate-spin"
+              type="link"
+              onClick={checkSwapState}
+            />
 
-        <div className="flex justify-center mt-8 gap-3">
-          <UpdateIcon
-            className="mt-2 hover:animate-spin"
-            type="link"
-            onClick={checkSwapState}
-          />
-
-          <button
-            className="border p-1 rounded-xl bg-stone-950 hover:bg-white hover:text-black font-lighter"
-            onClick={() => {
-              preTx();
-            }}
-          >
-            {txButtonLabel}
-          </button>
+            <button
+              className="border p-1 rounded-xl bg-stone-950 hover:bg-white hover:text-black font-lighter"
+              onClick={() => {
+                preTx();
+              }}
+            >
+              {txButtonLabel}
+            </button>
+          </div>
         </div>
       </div>
     </div>

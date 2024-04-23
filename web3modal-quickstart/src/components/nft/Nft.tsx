@@ -17,6 +17,8 @@ import {
 } from "@/components/ui/card";
 import Alerts from "../main/Alerts";
 import { abi } from "@/abi/abi";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
 interface NftData {
   identifier: string;
@@ -103,7 +105,7 @@ function Nft() {
           <h1 className="underline bold font-bold">GodDog Collection:</h1>
         </div>
         <div className="flex justify-center mt-10">
-          <div className="grid md:grid-cols-1 sm:grid-cols-1 gap-3 mb-10">
+          <div>
             {nfts.map((nft) => {
               if (!nft) return null; // Skip rendering if nft is null or undefined
 
@@ -140,6 +142,7 @@ function Nft() {
               );
             })}
           </div>
+          <div className="grid md:grid-cols-1 sm:grid-cols-1 gap-3 mb-10"></div>
         </div>
       </div>
     </div>

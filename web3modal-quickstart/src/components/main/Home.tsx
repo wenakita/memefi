@@ -6,10 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useContractRead } from "wagmi";
+import { useContractRead, useAccount } from "wagmi";
 import { NavLink, useNavigate } from "react-router-dom";
 import calcAbi from "@/abi/calcCaABI";
 function Home() {
+  const { address } = useAccount();
   const [currentPrice, setCurrentPrice] = useState(0);
   const navigate = useNavigate();
   const {
@@ -85,7 +86,9 @@ function Home() {
                 style={{ maxWidth: "7%" }}
               />
               <p className="mt-1" style={{ fontSize: "10px" }}>
-                {currentPrice} ETH / Friend.tech share
+                {address
+                  ? currentPrice + " ETH / Friend.tech share"
+                  : "Connect wallet to view share price"}
               </p>
             </div>
             <div className="flex justify-center mt-4 text-xs gap-2 underline text-slate-400">
