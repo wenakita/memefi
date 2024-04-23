@@ -42,9 +42,11 @@ function FriendTechSwap() {
     isError: isReadError,
     isLoading: isReadingLoading,
   } = useContractRead({
+    //Contract where you can get the tokens supply
     address: "0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4",
     abi: calcAbi,
     functionName: "sharesSupply",
+    //friendtech supplier address
     args: ["0xe662b210d547966eb33b391b9a8292d2a87b5f69"],
   });
 
@@ -57,6 +59,7 @@ function FriendTechSwap() {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "balanceOfBatch",
+    //userAddress and FriendTech token id
     args: [[address], ["1315268862033850083011562997827600797723738726249"]],
   });
 
@@ -66,6 +69,7 @@ function FriendTechSwap() {
     isSuccess: mintSuccess,
     isError: isWrapUnsuccessFul,
   } = useContractWrite({
+    //constract that you use to wrap and unwrap tokens
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "wrap",
@@ -76,6 +80,7 @@ function FriendTechSwap() {
     data: unWrapData,
     isSuccess: isUnwrapSuccess,
   } = useContractWrite({
+    //constract that you use to wrap and unwrap tokens
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "unwrap",
@@ -132,7 +137,7 @@ function FriendTechSwap() {
 
       write({
         args: [
-          "0x1027893573a9a01854ba9a88ac5f00da448e37ad",
+          "0xE662B210d547966eb33b391b9A8292d2a87b5f69",
           amountTokens,
           "0x",
         ],
