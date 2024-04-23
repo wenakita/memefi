@@ -16,18 +16,19 @@ import { useWaitForTransaction } from "wagmi";
 import Alerts from "../main/Alerts";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import axios from "axios";
+import tokenABI from "@/abi/tokenABI";
 function FriendTechSwap() {
   const [price, setPrice] = useState(0);
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
   const [shareBalance, setShareBalance] = useState("");
   const [ethPrice, setEthPrice] = useState("");
+  const [finalyValue, setFInalValue] = useState(0);
 
   const [tokenAmount, setTokenAmount] = useState(0);
 
   const [shouldWrap, setShouldWrap] = useState(true);
   const [shouldUnwrap, setShouldUnwrap] = useState(false);
-
   const [alert, setAlert] = useState({
     title: "",
     description: "",
@@ -49,7 +50,7 @@ function FriendTechSwap() {
     abi: calcAbi,
     functionName: "sharesSupply",
     //friendtech supplier address
-    args: ["0xe662b210d547966eb33b391b9a8292d2a87b5f69"],
+    args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1"],
   });
 
   const {
@@ -62,7 +63,19 @@ function FriendTechSwap() {
     abi: friendTechABI,
     functionName: "balanceOfBatch",
     //userAddress and FriendTech token id
-    args: [[address], ["1315268862033850083011562997827600797723738726249"]],
+    args: [[address], ["702922675998894831856630517018346639439163503601"]],
+  });
+
+  const {
+    data: buyPriceAfterFee,
+    isError: cannotGetBuyPrice,
+    isLoading: gettingBuyPrice,
+    isSuccess: gotBuyPrice,
+  } = useContractRead({
+    address: "0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4",
+    abi: tokenABI,
+    functionName: "getBuyPriceAfterFee",
+    args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1", Number(buyAmount)],
   });
 
   const {
@@ -97,7 +110,6 @@ function FriendTechSwap() {
   });
 
   useEffect(() => {
-    getEthPrice();
     if (isShareBalanceLoaded && Array.isArray(shareBalanceResult)) {
       const shareBalanceConverted = Number(shareBalanceResult[0]).toString();
       setShareBalance(shareBalanceConverted);
@@ -108,20 +120,7 @@ function FriendTechSwap() {
     const currentPrice = (currentSupply * currentSupply) / 16000;
     console.log(currentPrice);
     setPrice(currentPrice);
-  });
-
-  function getEthPrice() {
-    axios
-      .get(
-        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
-      )
-      .then(function (results) {
-        setEthPrice(results.data.ethereum.usd);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  }, [address]);
 
   function checkSwapState() {
     console.log("here");
@@ -141,23 +140,26 @@ function FriendTechSwap() {
     }
   }
   function wrapToken() {
+    console.log("buyAmoutn:", buyAmount);
+    console.log("price:", price);
+
     const convertedBuyAmount = Number(buyAmount);
     console.log(convertedBuyAmount);
     console.log(price);
-    const amountTokens = Math.floor(convertedBuyAmount / price);
-    console.log("Amount: ", amountTokens);
 
+    const temp = String(finalyValue);
+    console.log(temp);
     if (address) {
       setAlertStatus(true);
       console.log(buyAmount);
 
       write({
         args: [
-          "0xE662B210d547966eb33b391b9A8292d2a87b5f69",
-          amountTokens,
+          "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
+          convertedBuyAmount,
           "0x",
         ],
-        value: parseEther(buyAmount),
+        value: parseEther(temp),
       });
       setAlert({
         title: "Tx Submission",
@@ -173,6 +175,15 @@ function FriendTechSwap() {
     }
   }
 
+  useEffect(() => {
+    if (gotBuyPrice) {
+      let ethAmount = Number(buyPriceAfterFee) / 10 ** 18;
+      console.log("final: ", ethAmount);
+      console.log(buyPriceAfterFee);
+      setFInalValue(ethAmount);
+    }
+  }, [buyAmount]);
+
   function unWrapToken() {
     console.log("Unwrapping");
     const sellAmountConverted = Number(sellAmount);
@@ -183,7 +194,7 @@ function FriendTechSwap() {
     console.log("val:", ethValue);
 
     unWrap?.({
-      args: ["0xE662B210d547966eb33b391b9A8292d2a87b5f69", sellAmountConverted],
+      args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1", sellAmountConverted],
     });
   }
   const txButtonLabel = shouldWrap === true ? "Wrap Token" : "Unwrap Token";
@@ -214,7 +225,10 @@ function FriendTechSwap() {
         <h1 className="text-xs">
           {shouldWrap
             ? "Share buy Price: " + price + " ETH/share"
-            : "Share sell price: 1" + "Share/" + price + " ETH"}
+            : "Share sell price: 1" + "Share/" + price + " ETH "}
+        </h1>
+        <h1 className="" style={{ fontSize: "10px" }}>
+          (including fees)
         </h1>
         <div className="mb-2 mt-2">
           <label htmlFor="" className="text-xs font-light">
@@ -235,17 +249,11 @@ function FriendTechSwap() {
           />
         </div>
         <div className="flex justify-end text-xs">
-          <a
-            href=""
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
+          <p>
             {shouldWrap
               ? "ETH Balance: " + balanceEth?.formatted
               : "Shares Balance: " + shareBalance}
-          </a>
+          </p>
         </div>
 
         <div className="flex justify-center mt-8 gap-3">
@@ -265,66 +273,6 @@ function FriendTechSwap() {
           </button>
         </div>
       </div>
-      {/* <div className="border border-slate-500 bg-black mt-8 rounded-xl p-5 ">
-        <div>
-          <div className="mb-3">
-            <img
-              src="https://www.friend.tech/friendtechlogo.png"
-              alt=""
-              style={{ maxWidth: "5%" }}
-            />
-            <h1 className="mt-1">Buy Shares</h1>
-            <h1>on Friend.Tech</h1>
-          </div>
-          <div className="text-xs">Toke Price: {price} ETH / Share</div>
-          <div className="mt-4">
-            <div>
-              <label htmlFor="" className="text-xs">
-                From:
-              </label>
-              <Input
-                type="text"
-                className="border-slate-500 rounded-xl"
-                onChange={(e) => {
-                  setBuyAmount(e.target.value);
-                  console.log(e.target.value);
-                }}
-              />
-
-              <div className="mt-2">
-                <label htmlFor="" className="text-xs">
-                  Amount:
-                </label>
-                <Input
-                  type="text"
-                  className="mt-2 border-slate-500 rounded-xl"
-                />
-              </div>
-            </div>
-            <div className="flex justify-end text-xs mt-2">
-              <a
-                href=""
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                ETH Balance: {balanceEth?.formatted}
-              </a>
-            </div>
-            <div className="flex justify-center mt-5">
-              <button
-                className="border p-2 rounded-xl bg-stone-950 hover:bg-white hover:text-black font-lighter"
-                onClick={() => {
-                  wrapToken();
-                }}
-              >
-                {label}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 }

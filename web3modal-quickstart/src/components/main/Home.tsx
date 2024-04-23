@@ -1,13 +1,36 @@
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useContractRead } from "wagmi";
 import { NavLink, useNavigate } from "react-router-dom";
+import calcAbi from "@/abi/calcCaABI";
 function Home() {
+  const [currentPrice, setCurrentPrice] = useState(0);
   const navigate = useNavigate();
+  const {
+    data: supplyResults,
+    isError: isReadError,
+    isLoading: isReadingLoading,
+  } = useContractRead({
+    //Contract where you can get the tokens supply
+    address: "0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4",
+    abi: calcAbi,
+    functionName: "sharesSupply",
+    //friendtech supplier address
+    args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1"],
+  });
+
+  console.log(supplyResults);
+  useEffect(() => {
+    const currentSupply = Number(supplyResults);
+    const currentPrice = (currentSupply * currentSupply) / 16000;
+    setCurrentPrice(currentPrice);
+  }, []);
 
   return (
     <div className="mt-10 container flex justify-center">
@@ -54,6 +77,16 @@ function Home() {
                   Buy Now
                 </a>
               </Button>
+            </div>
+            <div className="flex justify-center mt-3 mb-2 gap-2">
+              <img
+                src="https://www.friend.tech/friendtechlogo.png"
+                alt=""
+                style={{ maxWidth: "7%" }}
+              />
+              <p className="mt-1" style={{ fontSize: "10px" }}>
+                {currentPrice} ETH / Friend.tech share (including fees)
+              </p>
             </div>
             <div className="flex justify-center mt-4 text-xs gap-2 underline text-slate-400">
               <a href="https://linktr.ee/goddog69" target="_blank">
