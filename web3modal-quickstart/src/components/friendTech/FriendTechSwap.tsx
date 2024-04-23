@@ -206,7 +206,7 @@ function FriendTechSwap() {
   }
   console.log(address);
   return (
-    <div className="mt-10 container">
+    <div className="mt-10 container flex justify-center">
       {isAlertActive ? (
         <Alerts title={alert.title} description={alert.description} />
       ) : null}
