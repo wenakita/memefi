@@ -15,11 +15,13 @@ import toast, { Toaster } from "react-hot-toast";
 import { useWaitForTransaction } from "wagmi";
 import Alerts from "../main/Alerts";
 import { UpdateIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 function FriendTechSwap() {
   const [price, setPrice] = useState(0);
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
   const [shareBalance, setShareBalance] = useState("");
+  const [ethPrice, setEthPrice] = useState("");
 
   const [tokenAmount, setTokenAmount] = useState(0);
 
@@ -95,6 +97,7 @@ function FriendTechSwap() {
   });
 
   useEffect(() => {
+    getEthPrice();
     if (isShareBalanceLoaded && Array.isArray(shareBalanceResult)) {
       const shareBalanceConverted = Number(shareBalanceResult[0]).toString();
       setShareBalance(shareBalanceConverted);
@@ -106,6 +109,19 @@ function FriendTechSwap() {
     console.log(currentPrice);
     setPrice(currentPrice);
   });
+
+  function getEthPrice() {
+    axios
+      .get(
+        "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+      )
+      .then(function (results) {
+        setEthPrice(results.data.ethereum.usd);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   function checkSwapState() {
     console.log("here");
@@ -143,17 +159,10 @@ function FriendTechSwap() {
         ],
         value: parseEther(buyAmount),
       });
-      if (isWrapUnsuccessFul) {
-        setAlert({
-          title: "Tx Reverted",
-          description: "Transaction Reverted",
-        });
-      } else if (mintSuccess) {
-        setAlert({
-          title: "Tx Submission",
-          description: "Submitting transaction on the contract",
-        });
-      }
+      setAlert({
+        title: "Tx Submission",
+        description: "Submitting transaction on the contract",
+      });
     } else {
       setAlertStatus(true);
       setAlert({
@@ -166,8 +175,13 @@ function FriendTechSwap() {
 
   function unWrapToken() {
     console.log("Unwrapping");
-    console.log("Selling: ", sellAmount);
     const sellAmountConverted = Number(sellAmount);
+    console.log("Selling: ", sellAmountConverted);
+    console.log(price);
+    let ethValue = price * sellAmountConverted;
+
+    console.log("val:", ethValue);
+
     unWrap?.({
       args: ["0xE662B210d547966eb33b391b9A8292d2a87b5f69", sellAmountConverted],
     });
