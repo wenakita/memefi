@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import {
-  useBalance,
-  useAccount,
-  useContractWrite,
-  useContractRead,
-  usePrepareContractWrite,
-} from "wagmi";
-import { Input } from "@/components/ui/input";
-import { base } from "wagmi/chains";
 import friendTechABI from "@/abi/friendTechABI";
-import calcAbi from "../../abi/calcCaABI";
-import { parseEther, parseGwei, toHex } from "viem";
-import toast, { Toaster } from "react-hot-toast";
-import { useWaitForTransaction } from "wagmi";
-import Alerts from "../main/Alerts";
-import { UpdateIcon } from "@radix-ui/react-icons";
-import axios from "axios";
 import tokenABI from "@/abi/tokenABI";
+import { Input } from "@/components/ui/input";
+import { UpdateIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { parseEther } from "viem";
+import {
+  useAccount,
+  useBalance,
+  useContractRead,
+  useContractWrite,
+  useWaitForTransaction
+} from "wagmi";
+import calcAbi from "../../abi/calcCaABI";
+import Alerts from "../main/Alerts";
 function FriendTechSwap() {
   const [price, setPrice] = useState(0);
   const [buyAmount, setBuyAmount] = useState("");

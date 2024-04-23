@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { abi } from "@/abi/abi";
 import { Button } from "@/components/ui/button";
-import { useAccount } from "wagmi";
-import {
-  useContractRead,
-  useContractWrite,
-  usePrepareContractWrite,
-} from "wagmi";
 import {
   Card,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {
+  useAccount,
+  useContractRead,
+  useContractWrite,
+  usePrepareContractWrite,
+} from "wagmi";
 import Alerts from "../main/Alerts";
-import { abi } from "@/abi/abi";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
 
 interface NftData {
   identifier: string;
