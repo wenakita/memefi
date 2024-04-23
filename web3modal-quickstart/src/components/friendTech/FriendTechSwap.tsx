@@ -211,16 +211,18 @@ function FriendTechSwap() {
         <Alerts title={alert.title} description={alert.description} />
       ) : null}
       <div className="mt-5 border p-5 rounded-xl border-slate-500 bg-black">
-        <div className="mb-3">
-          <div className="flex justify-start gap-2 mb-1">
+        <div className="mb-2">
+          <div className="flex justify-star mb-1">
             <img
               src="https://www.friend.tech/friendtechlogo.png"
               alt=""
               style={{ maxWidth: "5%" }}
             />
-            <h1 className="text-xs mt-2">Buy Shares</h1>
           </div>
-          <h1 className="text-xs">on friend.tech</h1>
+          <span className="text-yellow-400 font-mono">
+            <h1 className="text-xs mt-2">Mint NFT's of</h1>
+            <h1 className="text-xs">Friend.tech shares</h1>
+          </span>
         </div>
         <h1 className="text-xs">
           {shouldWrap
@@ -230,7 +232,7 @@ function FriendTechSwap() {
         <h1 className="" style={{ fontSize: "10px" }}>
           (including fees)
         </h1>
-        <div className="mb-2 mt-2">
+        <div className="mb-2 mt-3">
           <label htmlFor="" className="text-xs font-light">
             Amount:
           </label>
