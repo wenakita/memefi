@@ -249,6 +249,14 @@ function FriendTechSwap() {
               console.log(e.target.value);
             }}
           />
+          <Input
+            className="border-slate-500 rounded-xl mt-2"
+            defaultValue={
+              shouldWrap
+                ? Math.floor(Number(buyAmount) / price)
+                : sellAmount * price
+            }
+          />
         </div>
         <div className="flex justify-end text-xs">
           <p>
