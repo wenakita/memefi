@@ -57,7 +57,7 @@ function FriendTechSwap() {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "balanceOfBatch",
-    args: [[address], ["1317723445862163983854432406292391087261773354280"]],
+    args: [[address], ["1315268862033850083011562997827600797723738726249"]],
   });
 
   const {
@@ -132,7 +132,7 @@ function FriendTechSwap() {
 
       write({
         args: [
-          "0xe6d0c34e64836d75d7c0a76079808aec41fe5528",
+          "0x1027893573a9a01854ba9a88ac5f00da448e37ad",
           amountTokens,
           "0x",
         ],
