@@ -15,6 +15,7 @@ import {
 import calcAbi from "../../abi/calcCaABI";
 import Alerts from "../main/Alerts";
 function FriendTechSwap() {
+  const [userEthBalance, setUserEthBalance] = useState(0);
   const [price, setPrice] = useState(0);
   const [buyAmount, setBuyAmount] = useState("");
   const [sellAmount, setSellAmount] = useState("");
@@ -97,16 +98,12 @@ function FriendTechSwap() {
     abi: friendTechABI,
     functionName: "unwrap",
   });
-  const { isLoading } = useWaitForTransaction({
-    hash: writeData?.hash,
-    onSuccess: () => {
-      toast.success("Token Minted!");
-      refetch();
-    },
-    onError: () => toast.error("An Error Occurred"),
-  });
 
   useEffect(() => {
+    if (address) {
+      setUserEthBalance(Number(balanceEth?.formatted));
+    }
+
     if (isShareBalanceLoaded && Array.isArray(shareBalanceResult)) {
       const shareBalanceConverted = Number(shareBalanceResult[0]).toString();
       setShareBalance(shareBalanceConverted);
@@ -154,18 +151,30 @@ function FriendTechSwap() {
 
       console.log(buyAmount);
 
-      await write({
-        args: [
-          "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
-          convertedBuyAmount,
-          "0x",
-        ],
-        value: parseEther(temp),
-      });
-      setAlert({
-        title: "Submitting Transaction",
-        description: "Submitting transaction on the contract",
-      });
+      if (userEthBalance >= finalyValue) {
+        setAlert({
+          title: "Submitting Transaction",
+          description: `Wrapping ${finalyValue} for ${convertedBuyAmount > 1 ? `${convertedBuyAmount} Shares of goddog` : `${convertedBuyAmount} Share of goddog`}`,
+        });
+        await write({
+          args: [
+            "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
+            convertedBuyAmount,
+            "0x",
+          ],
+          value: parseEther(temp),
+        });
+      } else if (userEthBalance < finalyValue) {
+        setAlert({
+          title: "Insufficient Funds",
+          description: "Not enough ETH to complete transaction",
+        });
+      } else {
+        setAlert({
+          title: "Unexpected Error",
+          description: "Transaction reverted due to unexpected error",
+        });
+      }
     } else {
       setAlertStatus(true);
       setAlert({
