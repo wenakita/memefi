@@ -156,7 +156,7 @@ function FriendTechSwap() {
       write({
         args: [
           "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
-          Math.floor(Number(buyAmount) / Number(price)),
+          convertedBuyAmount,
           "0x",
         ],
         value: parseEther(temp),
@@ -177,7 +177,8 @@ function FriendTechSwap() {
 
   useEffect(() => {
     if (gotBuyPrice) {
-      let ethAmount = Number(buyPriceAfterFee) / 10 ** 18;
+      let ethAmount = Number(buyPriceAfterFee);
+      ethAmount = ethAmount / 10 ** 18;
       console.log("final: ", ethAmount);
       console.log(buyPriceAfterFee);
       setFInalValue(ethAmount);
