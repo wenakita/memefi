@@ -146,10 +146,14 @@ function FriendTechSwap() {
     const convertedBuyAmount = Number(buyAmount);
     console.log(convertedBuyAmount);
     console.log(price);
+    console.log("tex", finalyValue);
 
     const temp = String(finalyValue);
     console.log(temp);
+
     if (address) {
+      setAlertStatus(true);
+
       console.log(buyAmount);
 
       write({
@@ -160,21 +164,10 @@ function FriendTechSwap() {
         ],
         value: parseEther(temp),
       });
-      if (mintSuccess) {
-        setAlertStatus(true);
-
-        setAlert({
-          title: "Submitting Transaction",
-          description: "Submitting transaction on the contract",
-        });
-      } else {
-        setAlertStatus(true);
-
-        setAlert({
-          title: "Tx Reverted",
-          description: "Transaction reverted for unknown reason",
-        });
-      }
+      setAlert({
+        title: "Submitting Transaction",
+        description: "Submitting transaction on the contract",
+      });
     } else {
       setAlertStatus(true);
       setAlert({
