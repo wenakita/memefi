@@ -136,7 +136,7 @@ function FriendTechSwap() {
       wrapToken();
     }
   }
-  function wrapToken() {
+  async function wrapToken() {
     console.log("buyAmoutn:", buyAmount);
     console.log("price:", price);
 
@@ -154,7 +154,7 @@ function FriendTechSwap() {
 
       console.log(buyAmount);
 
-      write({
+      await write({
         args: [
           "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
           convertedBuyAmount,
@@ -184,7 +184,7 @@ function FriendTechSwap() {
       console.log(buyPriceAfterFee);
       setFInalValue(ethAmount);
     }
-  }, [buyAmount]);
+  }, [buyAmount, buyPriceAfterFee]);
 
   function unWrapToken() {
     console.log("Unwrapping");
@@ -291,7 +291,9 @@ function FriendTechSwap() {
             <UpdateIcon
               className="mt-2 hover:animate-spin"
               type="link"
-              onClick={checkSwapState}
+              onClick={() => {
+                checkSwapState;
+              }}
             />
 
             <button
