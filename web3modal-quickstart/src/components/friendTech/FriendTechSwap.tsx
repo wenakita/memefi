@@ -147,6 +147,7 @@ function FriendTechSwap() {
 
     const temp = finalyValue.toString();
     console.log(temp);
+    console.log("difference", finalyValue - Number(buyAmount) * 0.0330625);
 
     if (address) {
       setAlertStatus(true);
@@ -262,7 +263,7 @@ function FriendTechSwap() {
           </div>
           <div className="mt-3 text-xs font-mono">
             <label htmlFor="" className="" style={{ fontSize: "10px" }}>
-              Recieve:
+              {shouldWrap ? "Value:" : "Recieve:"}
             </label>
             <Input
               readOnly
@@ -270,7 +271,7 @@ function FriendTechSwap() {
               value={
                 address
                   ? shouldWrap
-                    ? Number(buyAmount) / Number(price)
+                    ? Number(buyAmount) * price
                     : Number(sellAmount) * Number(price)
                   : ""
               }
