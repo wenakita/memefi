@@ -57,7 +57,7 @@ function FriendTechSwap() {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "balanceOfBatch",
-    args: [[address], ["1315268862033850083011562997827600797723738726249"]],
+    args: [[address], ["1317723445862163983854432406292391087261773354280"]],
   });
 
   const {
@@ -126,13 +126,13 @@ function FriendTechSwap() {
     const amountTokens = Math.floor(convertedBuyAmount / price);
     console.log("Amount: ", amountTokens);
 
-    if (address && convertedBuyAmount > price) {
+    if (address) {
       setAlertStatus(true);
       console.log(buyAmount);
 
       write({
         args: [
-          "0xE662B210d547966eb33b391b9A8292d2a87b5f69",
+          "0xe6d0c34e64836d75d7c0a76079808aec41fe5528",
           amountTokens,
           "0x",
         ],
@@ -164,10 +164,7 @@ function FriendTechSwap() {
     console.log("Selling: ", sellAmount);
     const sellAmountConverted = Number(sellAmount);
     unWrap?.({
-      args: [
-        " 0xE662B210d547966eb33b391b9A8292d2a87b5f69",
-        sellAmountConverted,
-      ],
+      args: ["0xE662B210d547966eb33b391b9A8292d2a87b5f69", sellAmountConverted],
     });
   }
   const txButtonLabel = shouldWrap === true ? "Wrap Token" : "Unwrap Token";
