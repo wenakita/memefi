@@ -290,9 +290,9 @@ function FriendTechSwap() {
           <div className="flex justify-center mt-8 gap-3">
             <UpdateIcon
               className="mt-2 hover:animate-spin"
-              type="link"
+              type="button"
               onClick={() => {
-                checkSwapState;
+                checkSwapState();
               }}
             />
 
