@@ -216,7 +216,7 @@ function FriendTechSwap() {
             <img
               src="https://www.friend.tech/friendtechlogo.png"
               alt=""
-              style={{ maxWidth: "5%" }}
+              style={{ maxWidth: "12%" }}
             />
           </div>
           <span className="text-yellow-400 font-mono">
@@ -226,7 +226,7 @@ function FriendTechSwap() {
         </div>
         <h1 className="text-xs">
           {shouldWrap
-            ? "Share buy Price: " + price + " ETH/share"
+            ? "Share buy Price: " + price + " ETH"
             : "Share sell price: 1" + "Share/" + price + " ETH "}
         </h1>
         <h1 className="" style={{ fontSize: "10px" }}>

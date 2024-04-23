@@ -85,7 +85,7 @@ function Home() {
                 style={{ maxWidth: "7%" }}
               />
               <p className="mt-1" style={{ fontSize: "10px" }}>
-                {currentPrice} ETH / Friend.tech share (including fees)
+                {currentPrice} ETH / Friend.tech share
               </p>
             </div>
             <div className="flex justify-center mt-4 text-xs gap-2 underline text-slate-400">
