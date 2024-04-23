@@ -39,15 +39,15 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.0.4",
-    "vite": "^5.0.0",
-    "browserslist": {
-      "production": [
-        ">0.2%",
-        "not ie <= 99",
-        "not android <= 4.4.4",
-        "not dead",
-        "not op_mini all"
-      ]
-    }
+    "vite": "^5.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not ie <= 99",
+      "not android <= 4.4.4",
+      "not dead",
+      "not op_mini all"
+    ]
   }
 }
