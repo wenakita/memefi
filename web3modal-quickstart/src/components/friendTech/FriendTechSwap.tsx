@@ -148,7 +148,7 @@ function FriendTechSwap() {
     console.log(price);
     console.log("tex", finalyValue);
 
-    const temp = String(finalyValue);
+    const temp = finalyValue.toString();
     console.log(temp);
 
     if (address) {

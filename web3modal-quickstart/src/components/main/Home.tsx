@@ -91,11 +91,17 @@ function Home() {
                   : "Connect wallet to view share price"}
               </p>
             </div>
-            <div className="flex justify-center mt-4 text-xs gap-2 underline text-slate-400">
+            <div
+              className="flex justify-center mt-4 gap-2 underline text-slate-400"
+              style={{ fontSize: "10px" }}
+            >
               <a href="https://linktr.ee/goddog69" target="_blank">
                 LinkTree
               </a>
-              <a href="https://warpcast.com/~/channel/goddog" target="_blank">
+              <a href="https://t.me/goddog_official" target="_blank">
+                Telegram
+              </a>
+              <a href="" target="_blank">
                 Warpcast
               </a>
               <a
