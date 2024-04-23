@@ -274,7 +274,7 @@ function FriendTechSwap() {
                   ? shouldWrap
                     ? Number(buyAmount) / Number(price)
                     : Number(sellAmount) * Number(price)
-                  : undefined
+                  : ""
               }
             />
           </div>
@@ -284,7 +284,7 @@ function FriendTechSwap() {
                 ? shouldWrap
                   ? "ETH Balance: " + balanceEth?.formatted
                   : "Shares Balance: " + shareBalance
-                : null}
+                : ""}
             </p>
           </div>
 
