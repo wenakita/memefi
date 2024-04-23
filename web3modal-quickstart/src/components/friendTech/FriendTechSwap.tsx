@@ -10,7 +10,7 @@ import {
   useBalance,
   useContractRead,
   useContractWrite,
-  useWaitForTransaction
+  useWaitForTransaction,
 } from "wagmi";
 import calcAbi from "../../abi/calcCaABI";
 import Alerts from "../main/Alerts";
@@ -156,7 +156,7 @@ function FriendTechSwap() {
       write({
         args: [
           "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
-          convertedBuyAmount,
+          Math.floor(Number(buyAmount) / Number(price)),
           "0x",
         ],
         value: parseEther(temp),
