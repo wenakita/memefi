@@ -150,22 +150,32 @@ function FriendTechSwap() {
     console.log("difference", finalyValue - Number(buyAmount) * 0.0330625);
 
     if (address) {
-      setAlertStatus(true);
-
       console.log(buyAmount);
+      const currentUserEth = Number(balanceEth?.formatted);
 
-      await write({
-        args: [
-          "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
-          convertedBuyAmount,
-          "0x",
-        ],
-        value: parseEther(temp),
-      });
-      setAlert({
-        title: "Submitting Transaction",
-        description: "Submitting transaction on the contract",
-      });
+      if (currentUserEth >= finalyValue) {
+        setAlertStatus(true);
+
+        setAlert({
+          title: "Submitting Transaction",
+          description: "Submitting transaction on the contract",
+        });
+        await write({
+          args: [
+            "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
+            convertedBuyAmount,
+            "0x",
+          ],
+          value: parseEther(temp),
+        });
+      } else {
+        setAlertStatus(true);
+
+        setAlert({
+          title: "Insufficient funds",
+          description: "Submitting transaction on the contract",
+        });
+      }
     } else {
       setAlertStatus(true);
       setAlert({
@@ -195,9 +205,20 @@ function FriendTechSwap() {
 
     console.log("val:", ethValue);
 
-    unWrap?.({
-      args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1", sellAmountConverted],
-    });
+    if (address) {
+      unWrap?.({
+        args: [
+          "0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1",
+          sellAmountConverted,
+        ],
+      });
+    } else {
+      setAlertStatus(true);
+      setAlert({
+        title: "Wallet Connection",
+        description: "Must connect wallet to buy shares",
+      });
+    }
   }
   const txButtonLabel = shouldWrap === true ? "Wrap Token" : "Unwrap Token";
   if (mintSuccess) {
