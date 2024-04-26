@@ -459,7 +459,7 @@ function FriendTechTool() {
                             <div className="mt-5">
                               <Input
                                 type="text"
-                                placeholder="Enter amount shares to burn..."
+                                placeholder="Enter amount shares to mint..."
                                 style={{ fontSize: "12px" }}
                                 className="rounded-xl border-slate-500"
                                 onChange={(e) => {
