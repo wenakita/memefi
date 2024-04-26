@@ -25,15 +25,17 @@ import { CrossCircledIcon } from "@radix-ui/react-icons";
 
 function FriendTechTool() {
   const { address } = useAccount();
-  const [currentTokenAddress, setCurrentTokenAddress] = useState("");
-  const [targetSearch, setTargetSearch] = useState("");
-  const [searchSuccess, setSearchSuccess] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [trendingResults, setTrendingResults] = useState([]);
-  const [targetSharesAddress, setTargetShareAddress] = useState("");
-  const [tokenAmount, setTokenAmount] = useState("");
-  const [isAlertActive, setIsAlertActive] = useState(false);
-  const [alert, setAlert] = useState({ title: "", description: "" });
+  const [targetSearch, setTargetSearch] = useState<string>("");
+  const [searchSuccess, setSearchSuccess] = useState<boolean>(false);
+  const [searchResults, setSearchResults] = useState<FriendTechData[]>([]);
+  const [trendingResults, setTrendingResults] = useState<FriendTechData[]>([]);
+  const [targetSharesAddress, setTargetSharesAddress] = useState<string>("");
+  const [tokenAmount, setTokenAmount] = useState<string>("");
+  const [isAlertActive, setIsAlertActive] = useState<boolean>(false);
+  const [alert, setAlert] = useState<{ title: string; description: string }>({
+    title: "",
+    description: "",
+  });
 
   // Interface for friend tech data
   interface FriendTechData {
@@ -64,7 +66,7 @@ function FriendTechTool() {
     address: "0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4",
     abi: tokenABI,
     functionName: "getBuyPriceAfterFee",
-    args: [targetSharesAddress, Number(tokenAmount)],
+    args: [targetSharesAddress || "", Number(tokenAmount)],
   });
 
   const {
