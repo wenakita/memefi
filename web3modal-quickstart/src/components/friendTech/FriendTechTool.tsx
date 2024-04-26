@@ -84,7 +84,7 @@ function FriendTechTool() {
         setSearchSuccess(true);
       })
       .catch(function (error) {
-        setSearchResults(false);
+        setSearchSuccess(false);
         console.log(error);
       });
   }
