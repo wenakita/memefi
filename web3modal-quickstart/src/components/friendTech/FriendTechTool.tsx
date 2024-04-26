@@ -33,15 +33,6 @@ function FriendTechTool() {
   const [tokenAmount, setTokenAmount] = useState("");
   const [isAlertActive, setIsAlertActive] = useState(false);
   const [alert, setAlert] = useState({ title: "", description: "" });
-  interface SearchResult {
-    twitterPfpUrl: string;
-    ftUsername: string;
-    displayPrice: number;
-    followerCount: number;
-    rank: number;
-    address: string;
-    // Define other properties based on the actual response structure
-  }
 
   const {
     data: shareBuyResponse,
@@ -93,6 +84,7 @@ function FriendTechTool() {
       .get(`https://prod-api.kosetto.com/users/${targetSearch}`)
       .then(function (results) {
         console.log(results.data);
+
         setSearchResults(results.data);
         setSearchSuccess(true);
       })
@@ -106,17 +98,6 @@ function FriendTechTool() {
         console.log(error);
       });
   }
-
-  // function getShareBalance(userAddress) {
-  //   axios
-  //     .get(`https://prod-api.kosetto.com/friends-activity/${address}`)
-  //     .then(function (results) {
-  //       console.log(results);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
 
   function calculateFinalBuyAmount() {
     let finalAmount;
