@@ -233,7 +233,7 @@ function FriendTechTool() {
                 </h3>
                 <h3 className="mt-2">Rank: {searchResults?.rank}</h3>
                 <div className="flex justify-center gap-2 mt-3">
-                  <Dialog className="bg-black rounded-xl">
+                  <Dialog>
                     <DialogTrigger asChild>
                       <Button
                         className="border border-slate-500 rounded-xl font-bold bg-green-500"
@@ -301,7 +301,7 @@ function FriendTechTool() {
                       </DialogHeader>
                     </DialogContent>
                   </Dialog>
-                  <Dialog className="bg-black rounded-xl">
+                  <Dialog>
                     <DialogTrigger asChild>
                       <Button
                         className="border border-slate-500 rounded-xl font-bold bg-red-500"
@@ -420,7 +420,7 @@ function FriendTechTool() {
                     </h1>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <Dialog className="bg-black rounded-xl">
+                    <Dialog>
                       <DialogTrigger asChild>
                         <Button
                           className="border border-slate-500 rounded-xl font-bold bg-green-500"
@@ -483,7 +483,7 @@ function FriendTechTool() {
                         </DialogHeader>
                       </DialogContent>
                     </Dialog>
-                    <Dialog className="bg-black rounded-xl">
+                    <Dialog>
                       <DialogTrigger asChild>
                         <Button
                           className="border border-slate-500 rounded-xl font-bold bg-red-500"
