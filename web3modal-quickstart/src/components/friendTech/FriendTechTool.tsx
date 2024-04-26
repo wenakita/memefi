@@ -22,31 +22,18 @@ import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
-
 function FriendTechTool() {
   const { address } = useAccount();
-  const [targetSearch, setTargetSearch] = useState<string>("");
-  const [searchSuccess, setSearchSuccess] = useState<boolean>(false);
-  const [searchResults, setSearchResults] = useState<FriendTechData[]>([]);
-  const [trendingResults, setTrendingResults] = useState<FriendTechData[]>([]);
-  const [targetSharesAddress, setTargetSharesAddress] = useState<string>("");
-  const [tokenAmount, setTokenAmount] = useState<string>("");
-  const [isAlertActive, setIsAlertActive] = useState<boolean>(false);
-  const [alert, setAlert] = useState<{ title: string; description: string }>({
-    title: "",
-    description: "",
-  });
+  const [currentTokenAddress, setCurrentTokenAddress] = useState("");
+  const [targetSearch, setTargetSearch] = useState("");
+  const [searchSuccess, setSearchSuccess] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [trendingResults, setTrendingResults] = useState([]);
+  const [targetSharesAddress, setTargetShareAddress] = useState("");
+  const [tokenAmount, setTokenAmount] = useState("");
+  const [isAlertActive, setIsAlertActive] = useState(false);
+  const [alert, setAlert] = useState({ title: "", description: "" });
 
-  // Interface for friend tech data
-  interface FriendTechData {
-    ftUsername: string;
-    displayPrice: number;
-    followerCount: number;
-    rank: number;
-    twitterPfpUrl: string;
-    ftName: string;
-    address: string;
-  }
   const {
     data: shareBuyResponse,
     isLoading: isBuyingShares,
@@ -66,7 +53,7 @@ function FriendTechTool() {
     address: "0xCF205808Ed36593aa40a44F10c7f7C2F67d4A4d4",
     abi: tokenABI,
     functionName: "getBuyPriceAfterFee",
-    args: [targetSharesAddress || "", Number(tokenAmount)],
+    args: [targetSharesAddress, Number(tokenAmount)],
   });
 
   const {
@@ -79,14 +66,13 @@ function FriendTechTool() {
     abi: friendTechABI,
     functionName: "unwrap",
   });
-  // Fetch trending data on component mount
+
   useEffect(() => {
     axios
       .get("https://prod-api.kosetto.com/lists/trending")
       .then(function (results) {
         console.log(results.data.users);
-        const dataArray: FriendTechData[] = results.data.users; // Correctly cast to FriendTechData[]
-        setTrendingResults(dataArray);
+        setTrendingResults(results.data.users);
       })
       .catch(function (error) {
         console.log(error);
@@ -96,21 +82,20 @@ function FriendTechTool() {
   function searchUser() {
     axios
       .get(`https://prod-api.kosetto.com/users/${targetSearch}`)
-      .then(function (response) {
-        const results = response.data; // Extract data from AxiosResponse
+      .then(function (results) {
+        console.log(results.data);
 
-        console.log(results);
-        setSearchResults(results);
+        setSearchResults(results.data);
         setSearchSuccess(true);
       })
-      .catch((error: any) => {
+      .catch(function (error) {
         setSearchSuccess(false);
         setAlert({
           title: "Invalid Address",
-          description: "Address searched is invalid, please try again.",
+          description: "Address searched is invalid try again",
         });
         setIsAlertActive(true);
-        console.error(error); // Output error to console
+        console.log(error);
       });
   }
 
@@ -154,9 +139,6 @@ function FriendTechTool() {
     const buyPrice = formattedTarget / 10 ** 18;
     return buyPrice;
   }
-
-  // Other functions and logic go here...
-
   return (
     <div className="mt-10 container">
       <div className="flex justify-center">
@@ -205,23 +187,22 @@ function FriendTechTool() {
           >
             <CardHeader>
               <img
-                src={searchResults.twitterPfpUrl || ""}
+                src={searchResults.twitterPfpUrl}
                 alt=""
                 className="border border-slate-500 rounded-full w-36"
               />
 
               <CardTitle>
-                <h3 className="mt-5">{searchResults.ftUsername || ""}</h3>
+                <h3 className="mt-5">{searchResults.ftUsername}</h3>
               </CardTitle>
               <CardDescription>
                 <h3>
-                  Price: {uintConverter(searchResults.displayPrice || "")} ETH
-                  /Share
+                  Price: {uintConverter(searchResults.displayPrice)} ETH /Share
                 </h3>
                 <h3 className="mt-2">
-                  Followers: {searchResults.followerCount || ""}
+                  Followers: {searchResults.followerCount}
                 </h3>
-                <h3 className="mt-2">Rank: {searchResults.rank || ""}</h3>
+                <h3 className="mt-2">Rank: {searchResults.rank}</h3>
                 <div className="flex justify-center gap-2 mt-3">
                   <Dialog className="bg-black rounded-xl">
                     <DialogTrigger asChild>
@@ -229,42 +210,41 @@ function FriendTechTool() {
                         className="border border-slate-500 rounded-xl font-bold bg-green-500"
                         style={{ fontSize: "10px" }}
                       >
-                        Buy
+                        Mint
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="border-slate-500 rounded-xl bg-black">
                       <DialogHeader>
                         <DialogTitle>
                           <img
-                            src={searchResults.twitterPfpUrl || ""}
+                            src={searchResults.twitterPfpUrl}
                             alt=""
                             className="rounded-full mb-2"
                             style={{ maxWidth: "15%" }}
                           />
                         </DialogTitle>
                         <DialogTitle>
-                          Buy {searchResults.ftName} shares
+                          Mint {searchResults.ftName} shares
                         </DialogTitle>
                         <DialogTitle>
                           <h3
                             className="mt-2 font-mono"
                             style={{ fontSize: "10px" }}
                           >
-                            Contract: {searchResults.address || ""}
+                            Contract: {searchResults.address}
                           </h3>
                         </DialogTitle>
                         <DialogDescription>
                           <div className="mt-2">
                             <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
-                              Price:{" "}
-                              {uintConverter(searchResults.displayPrice || "")}
+                              Price: {uintConverter(searchResults.displayPrice)}
                               ETH / Share
                             </h1>
                           </div>
                           <div className="mt-5">
                             <Input
                               type="text"
-                              placeholder="Enter amount shares to buy..."
+                              placeholder="Enter amount shares to mint..."
                               style={{ fontSize: "12px" }}
                               className="rounded-xl border-slate-500"
                               onChange={(e) => {
@@ -276,13 +256,11 @@ function FriendTechTool() {
                               <Button
                                 className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                 onClick={() => {
-                                  setTargetSharesAddress(
-                                    searchResults.address || ""
-                                  );
-                                  createBuyTx(searchResults.address || "");
+                                  setTargetShareAddress(searchResults.address);
+                                  createBuyTx(searchResults.address);
                                 }}
                               >
-                                Buy
+                                Mint
                               </Button>
                             </div>
                           </div>
@@ -296,44 +274,43 @@ function FriendTechTool() {
                         className="border border-slate-500 rounded-xl font-bold bg-red-500"
                         style={{ fontSize: "10px" }}
                         onClick={() => {
-                          setTargetSharesAddress(searchResults.address || "");
-                          createSellTx(searchResults.address || "");
+                          setTargetShareAddress(searchResults.address);
+                          createSellTx(searchResults.address);
                         }}
                       >
-                        Sell
+                        Burn
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="border-slate-500 rounded-xl bg-black">
                       <DialogHeader>
                         <img
-                          src={searchResults.twitterPfpUrl || ""}
+                          src={searchResults.twitterPfpUrl}
                           alt=""
                           className="border border-slate-500 rounded-full mb-2"
                           style={{ maxWidth: "15%" }}
                         />
                         <DialogTitle>
-                          Sell {searchResults.ftName || ""} shares
+                          Burn {searchResults.ftName} shares
                         </DialogTitle>
                         <DialogTitle>
                           <h3
                             className="mt-2 font-mono"
                             style={{ fontSize: "10px" }}
                           >
-                            Contract: {searchResults.address || '"'}
+                            Contract: {searchResults.address}
                           </h3>
                         </DialogTitle>
                         <DialogDescription>
                           <div className="mt-2">
                             <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
-                              Price:{" "}
-                              {uintConverter(searchResults.displayPrice || "")}{" "}
+                              Price: {uintConverter(searchResults.displayPrice)}{" "}
                               ETH / Share
                             </h1>
                           </div>
                           <div className="mt-5">
                             <Input
                               type="text"
-                              placeholder="Enter amount shares to buy..."
+                              placeholder="Enter amount shares to burn..."
                               style={{ fontSize: "12px" }}
                               className="rounded-xl border-slate-500"
                               onChange={(e) => {
@@ -345,13 +322,11 @@ function FriendTechTool() {
                               <Button
                                 className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                 onClick={() => {
-                                  setTargetSharesAddress(
-                                    searchResults.address || ""
-                                  );
-                                  createSellTx(searchResults.address || "");
+                                  setTargetShareAddress(searchResults.address);
+                                  createSellTx(searchResults.address);
                                 }}
                               >
-                                Sell
+                                Burn
                               </Button>
                             </div>
                           </div>
@@ -401,7 +376,7 @@ function FriendTechTool() {
                       Price: {sharePrice} ETH /Share
                     </h1>
                     <h1 className="text-white" style={{ fontSize: "10px" }}>
-                      Volume: {uintConverter(Number(item.volume || ""))} ETH
+                      Volume: {uintConverter(Number(item.volume))} ETH
                     </h1>
                   </div>
                   <div className="flex justify-end gap-2">
@@ -411,7 +386,7 @@ function FriendTechTool() {
                           className="border border-slate-500 rounded-xl font-bold bg-green-500"
                           style={{ fontSize: "10px" }}
                         >
-                          Buy
+                          Mint
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="border-slate-500 rounded-xl bg-black">
@@ -425,7 +400,7 @@ function FriendTechTool() {
                             />
                           </DialogTitle>
 
-                          <DialogTitle>Buy {item.ftName} shares</DialogTitle>
+                          <DialogTitle>Mint {item.ftName} shares</DialogTitle>
                           <DialogTitle>
                             <h3
                               className="mt-2 font-mono"
@@ -444,7 +419,7 @@ function FriendTechTool() {
                             <div className="mt-5">
                               <Input
                                 type="text"
-                                placeholder="Enter amount shares to buy..."
+                                placeholder="Enter amount shares to burn..."
                                 style={{ fontSize: "12px" }}
                                 className="rounded-xl border-slate-500"
                                 onChange={(e) => {
@@ -456,11 +431,11 @@ function FriendTechTool() {
                                 <Button
                                   className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                   onClick={() => {
-                                    setTargetSharesAddress(item.address);
+                                    setTargetShareAddress(item.address);
                                     createBuyTx(item.address);
                                   }}
                                 >
-                                  Buy
+                                  Mint
                                 </Button>
                               </div>
                             </div>
@@ -474,11 +449,11 @@ function FriendTechTool() {
                           className="border border-slate-500 rounded-xl font-bold bg-red-500"
                           style={{ fontSize: "10px" }}
                           onClick={() => {
-                            setTargetSharesAddress(item.address);
+                            setTargetShareAddress(item.address);
                             createSellTx(item.address);
                           }}
                         >
-                          Sell
+                          Burn
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="border-slate-500 rounded-xl bg-black">
@@ -492,7 +467,7 @@ function FriendTechTool() {
                             />
                           </DialogTitle>
 
-                          <DialogTitle>Sell {item.ftName} shares</DialogTitle>
+                          <DialogTitle>Burn {item.ftName} shares</DialogTitle>
                           <DialogTitle>
                             <h3
                               className="mt-2 font-mono"
@@ -510,7 +485,7 @@ function FriendTechTool() {
                             <div className="mt-5">
                               <Input
                                 type="text"
-                                placeholder="Enter amount shares to buy..."
+                                placeholder="Enter amount shares to burn..."
                                 style={{ fontSize: "12px" }}
                                 className="rounded-xl border-slate-500"
                                 onChange={(e) => {
@@ -522,11 +497,11 @@ function FriendTechTool() {
                                 <Button
                                   className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                   onClick={() => {
-                                    setTargetSharesAddress(item.address);
+                                    setTargetShareAddress(item.address);
                                     createSellTx(item.address);
                                   }}
                                 >
-                                  Sell
+                                  Burn
                                 </Button>
                               </div>
                             </div>
