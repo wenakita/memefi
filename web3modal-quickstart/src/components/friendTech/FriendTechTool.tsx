@@ -33,6 +33,15 @@ function FriendTechTool() {
   const [tokenAmount, setTokenAmount] = useState("");
   const [isAlertActive, setIsAlertActive] = useState(false);
   const [alert, setAlert] = useState({ title: "", description: "" });
+  interface SearchResult {
+    twitterPfpUrl: string;
+    ftUsername: string;
+    displayPrice: number;
+    followerCount: number;
+    rank: number;
+    address: string;
+    // Define other properties based on the actual response structure
+  }
 
   const {
     data: shareBuyResponse,
