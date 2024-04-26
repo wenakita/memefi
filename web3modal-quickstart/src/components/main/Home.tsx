@@ -101,7 +101,7 @@ function Home() {
               <a
                 href=""
                 onClick={() => {
-                  navigate("/friend");
+                  navigate("/friend/find");
                 }}
               >
                 Friend.Tech Swap
