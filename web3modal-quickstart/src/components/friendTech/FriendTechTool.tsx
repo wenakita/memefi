@@ -22,6 +22,7 @@ import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+
 function FriendTechTool() {
   const { address } = useAccount();
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
@@ -34,6 +35,16 @@ function FriendTechTool() {
   const [isAlertActive, setIsAlertActive] = useState(false);
   const [alert, setAlert] = useState({ title: "", description: "" });
 
+  // Interface for friend tech data
+  interface FriendTechData {
+    ftUsername: string;
+    displayPrice: number;
+    followerCount: number;
+    rank: number;
+    twitterPfpUrl: string;
+    ftName: string;
+    address: string;
+  }
   const {
     data: shareBuyResponse,
     isLoading: isBuyingShares,
@@ -66,13 +77,14 @@ function FriendTechTool() {
     abi: friendTechABI,
     functionName: "unwrap",
   });
-
+  // Fetch trending data on component mount
   useEffect(() => {
     axios
       .get("https://prod-api.kosetto.com/lists/trending")
       .then(function (results) {
         console.log(results.data.users);
-        setTrendingResults(results.data.users);
+        const dataArray: FriendTechData[] = results.data.users; // Correctly cast to FriendTechData[]
+        setTrendingResults(dataArray);
       })
       .catch(function (error) {
         console.log(error);
@@ -82,20 +94,21 @@ function FriendTechTool() {
   function searchUser() {
     axios
       .get(`https://prod-api.kosetto.com/users/${targetSearch}`)
-      .then(function (results) {
-        console.log(results.data);
+      .then((response: AxiosResponse) => {
+        const results = response.data; // Extract data from AxiosResponse
 
-        setSearchResults(results.data);
+        console.log(results);
+        setSearchResults(results);
         setSearchSuccess(true);
       })
-      .catch(function (error) {
+      .catch((error: any) => {
         setSearchSuccess(false);
         setAlert({
           title: "Invalid Address",
-          description: "Address searched is invalid try again",
+          description: "Address searched is invalid, please try again.",
         });
         setIsAlertActive(true);
-        console.log(error);
+        console.error(error); // Output error to console
       });
   }
 
@@ -139,6 +152,9 @@ function FriendTechTool() {
     const buyPrice = formattedTarget / 10 ** 18;
     return buyPrice;
   }
+
+  // Other functions and logic go here...
+
   return (
     <div className="mt-10 container">
       <div className="flex justify-center">
@@ -179,7 +195,7 @@ function FriendTechTool() {
           Trending
         </Button>
       </div>
-      {searchSuccess && searchResults.length > 0 ? (
+      {searchSuccess ? (
         <div className="flex justify-center mt-10">
           <Card
             style={{ width: "18rem" }}
