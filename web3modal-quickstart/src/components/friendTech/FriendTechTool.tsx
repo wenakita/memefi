@@ -198,7 +198,7 @@ function FriendTechTool() {
           Trending
         </Button>
       </div>
-      {searchSuccess ? (
+      {searchSuccess && searchResults.length > 0 ? (
         <div className="flex justify-center mt-10">
           <Card
             style={{ width: "18rem" }}
