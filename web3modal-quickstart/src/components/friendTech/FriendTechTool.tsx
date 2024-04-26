@@ -277,7 +277,7 @@ function FriendTechTool() {
                               <Button
                                 className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                 onClick={() => {
-                                  setTargetShareAddress(
+                                  setTargetSharesAddress(
                                     searchResults.address || ""
                                   );
                                   createBuyTx(searchResults.address || "");
@@ -346,7 +346,7 @@ function FriendTechTool() {
                               <Button
                                 className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
                                 onClick={() => {
-                                  setTargetShareAddress(
+                                  setTargetSharesAddress(
                                     searchResults.address || ""
                                   );
                                   createSellTx(searchResults.address || "");
