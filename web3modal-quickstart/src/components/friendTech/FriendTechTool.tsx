@@ -20,6 +20,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
 function FriendTechTool() {
   const { address } = useAccount();
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
@@ -29,6 +31,8 @@ function FriendTechTool() {
   const [trendingResults, setTrendingResults] = useState([]);
   const [targetSharesAddress, setTargetShareAddress] = useState("");
   const [tokenAmount, setTokenAmount] = useState("");
+  const [isAlertActive, setIsAlertActive] = useState(false);
+  const [alert, setAlert] = useState({ title: "", description: "" });
 
   const {
     data: shareBuyResponse,
@@ -85,6 +89,11 @@ function FriendTechTool() {
       })
       .catch(function (error) {
         setSearchSuccess(false);
+        setAlert({
+          title: "Invalid Address",
+          description: "Address searched is invalid try again",
+        });
+        setIsAlertActive(true);
         console.log(error);
       });
   }
@@ -143,6 +152,15 @@ function FriendTechTool() {
   return (
     <div className="mt-10 container">
       <div className="flex justify-center">
+        {isAlertActive ? (
+          <Alert className="mb-10 mt-2 rounded-xl bg-black border-slate-500">
+            <CrossCircledIcon />
+            <AlertTitle>{alert.title}</AlertTitle>
+            <AlertDescription>{alert.description}</AlertDescription>
+          </Alert>
+        ) : null}
+      </div>
+      <div className="flex justify-center">
         <Input
           type="text"
           placeholder="Enter friendtech contract or name"
@@ -153,7 +171,7 @@ function FriendTechTool() {
           }}
         />
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-2">
         <Button
           onClick={() => {
             searchUser();
@@ -161,6 +179,14 @@ function FriendTechTool() {
           className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
         >
           Search
+        </Button>
+        <Button
+          className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
+          onClick={() => {
+            setSearchSuccess(false);
+          }}
+        >
+          Trending
         </Button>
       </div>
       {searchSuccess ? (
