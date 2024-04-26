@@ -112,7 +112,7 @@ function FriendTechTool() {
     return finalAmount;
   }
 
-  function createBuyTx(sharesAddress) {
+  function createBuyTx(sharesAddress: unknown) {
     const finalBuyETH = calculateFinalBuyAmount();
 
     console.log(finalBuyETH);
@@ -125,7 +125,7 @@ function FriendTechTool() {
     }
   }
 
-  function createSellTx(shareAddress) {
+  function createSellTx(shareAddress: unknown) {
     try {
       unWrap?.({
         args: [targetSharesAddress, Number(tokenAmount)],
@@ -505,16 +505,3 @@ function FriendTechTool() {
 }
 
 export default FriendTechTool;
-
-{
-  /* <div className="flex justify-center">
-<iframe
-  width="60%"
-  height="420"
-  frameborder="0"
-  src="https://www.theblock.co/data/decentralized-finance/social-decentralized-finance/friend-tech-daily-transactions/embed"
-  title="friend.tech Transactions"
-  className="rounded-xl"
-></iframe>
-</div> */
-}
