@@ -1,9 +1,9 @@
+import friendTechABI from "@/abi/friendTechABI";
+import tokenABI from "@/abi/tokenABI";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -15,19 +15,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  useAccount,
-  useBalance,
-  useContractRead,
-  useContractWrite,
-  useWaitForTransaction,
-} from "wagmi";
-import tokenABI from "@/abi/tokenABI";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import friendTechABI from "@/abi/friendTechABI";
 import { parseEther } from "viem";
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
 function FriendTechTool() {
   const { address } = useAccount();
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
