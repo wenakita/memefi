@@ -5,6 +5,7 @@ import Layout from "./components/main/Layout";
 import NotFound from "./components/main/NotFound";
 import Nft from "./components/nft/Nft";
 import FriendTechSwap from "./components/friendTech/FriendTechSwap";
+import FriendTechTool from "./components/friendTech/FriendTechTool";
 export default function App() {
   const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
     useState(false);
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/nft" element={<Nft />} />
           <Route path="/friend" element={<FriendTechSwap />} />
+          <Route path="/friend/find" element={<FriendTechTool />} />
           <Route path="/*" element={<NotFound />} />
         </Route>
       </Routes>

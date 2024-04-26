@@ -98,11 +98,13 @@ function Home() {
               <a href="https://linktr.ee/goddog69" target="_blank">
                 LinkTree
               </a>
-              <a href="https://t.me/goddog_official" target="_blank">
-                Telegram
-              </a>
-              <a href="" target="_blank">
-                Warpcast
+              <a
+                href=""
+                onClick={() => {
+                  navigate("/friend");
+                }}
+              >
+                Friend.Tech Swap
               </a>
               <a
                 href=""
