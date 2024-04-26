@@ -22,7 +22,6 @@ import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
-import { response } from "express";
 
 function FriendTechTool() {
   const { address } = useAccount();
