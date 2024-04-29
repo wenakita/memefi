@@ -21,8 +21,10 @@ import { useEffect, useState } from "react";
 import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useNavigate } from "react-router-dom";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 function FriendTechTool() {
+  const navigate = useNavigate();
   const { address } = useAccount();
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
   const [targetSearch, setTargetSearch] = useState("");
@@ -65,6 +67,18 @@ function FriendTechTool() {
     rank: number;
   }
   const {
+    data: shareBalanceResult,
+    isError: isShareBalanceError,
+    isLoading: isReadingShareBalance,
+    isSuccess: isShareBalanceLoaded,
+  } = useContractRead({
+    address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
+    abi: friendTechABI,
+    functionName: "balanceOfBatch",
+    //userAddress and FriendTech token id
+    args: [[address], []],
+  });
+  const {
     data: shareBuyResponse,
     isLoading: isBuyingShares,
     isSuccess: boughtShare,
@@ -73,6 +87,13 @@ function FriendTechTool() {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "wrap",
+    onError(error) {
+      setAlert({
+        title: "Insufficient Balance",
+        description: "Transaction reverted due to insufficient balance",
+      });
+      setIsAlertActive(true);
+    },
   });
   const {
     data: buyPriceAfterFee,
@@ -179,28 +200,38 @@ function FriendTechTool() {
           </Alert>
         ) : null}
       </div>
-      <div className="flex justify-center">
+      <div className="mt-10 gap-3">
+        <div className="flex justify-start mb-1 gap-3">
+          <h1
+            className="font-mono mt-2"
+            style={{ fontSize: "25px", fontWeight: "700" }}
+          >
+            {searchSuccess
+              ? `${searchResults?.ftUsername}'s friend.tech`
+              : "friend.tech trending"}
+          </h1>
+        </div>
+      </div>
+      <div className="flex justify-center gap-2 mt-2">
         <Input
           type="text"
-          placeholder="Enter friendtech contract or name"
+          placeholder="Enter friend.tech contract or name"
           className="rounded-xl border-slate-500 bg-black"
           onChange={(e) => {
             setTargetSearch(e.target.value);
             console.log(e.target.value);
           }}
         />
-      </div>
-      <div className="flex justify-center gap-2">
         <Button
           onClick={() => {
             searchUser();
           }}
-          className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
+          className=" border rounded-xl bg-black hover:bg-white hover:text-black"
         >
           Search
         </Button>
         <Button
-          className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
+          className="border rounded-xl bg-black hover:bg-white hover:text-black"
           onClick={() => {
             setSearchSuccess(false);
           }}
@@ -208,11 +239,23 @@ function FriendTechTool() {
           Trending
         </Button>
       </div>
+      <div className="flex justify-center gap-2">
+        {/* {address ? (
+          <Button
+            className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
+            onClick={() => {
+              navigate("/friend/balances");
+            }}
+          >
+            Balance
+          </Button>
+        ) : null} */}
+      </div>
       {searchSuccess ? (
         <div className="flex justify-center mt-10">
           <Card
             style={{ width: "18rem" }}
-            className="rounded-xl bg-black border-slate-500"
+            className="rounded-xl p-2 bg-black border-slate-500"
           >
             <CardHeader>
               <img
@@ -222,17 +265,24 @@ function FriendTechTool() {
               />
 
               <CardTitle>
-                <h3 className="mt-5">{searchResults?.ftUsername}</h3>
+                <a
+                  href={`https://www.friend.tech/${searchResults?.address}`}
+                  target="_blank"
+                  className="mt-5 font-mono"
+                >
+                  {searchResults?.ftUsername}
+                </a>
               </CardTitle>
               <CardDescription>
-                <h3>
-                  Price: {uintConverter(searchResults?.displayPrice)} ETH /Share
+                <h3 className="mt-1">
+                  Price/Share: {uintConverter(searchResults?.displayPrice)} Ξ
                 </h3>
-                <h3 className="mt-2">
+                <h3 className="mt-1">
                   Followers: {searchResults?.followerCount}
                 </h3>
+                <h3 className="mt-1">Holders: {searchResults?.holderCount}</h3>
                 <h3 className="mt-2">Rank: {searchResults?.rank}</h3>
-                <div className="flex justify-center gap-2 mt-3">
+                <div className="flex justify-center gap-2 mt-5">
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button
@@ -381,14 +431,7 @@ function FriendTechTool() {
         </div>
       ) : (
         <div className="mt-10">
-          <div className="flex justify-center mb-5">
-            <h1
-              className="font-mono mb-5"
-              style={{ fontSize: "20px", fontWeight: "700" }}
-            >
-              Trending Users
-            </h1>
-          </div>
+          <div className="flex justify-center mb-5"></div>
           {trendingResults.map((item: FriendTechItem, index) => {
             const sharePrice = uintConverter(item.displayPrice);
             return (
@@ -401,22 +444,22 @@ function FriendTechTool() {
                     <img
                       src={item.twitterPfpUrl}
                       alt=""
-                      style={{ maxWidth: "16%" }}
-                      className="rounded-xl"
+                      style={{ maxWidth: "15%" }}
+                      className="rounded-full"
                     />
                     <h1
-                      className="text-white mt-2"
-                      style={{ fontSize: "10px" }}
+                      className="text-white mt-2 font-mono font-bold"
+                      style={{ fontSize: "12px" }}
                     >
                       {item.ftName}
                     </h1>
                   </div>
-                  <div className="ms-5 mt-1">
+                  <div className="ms-5 mt-1 sm:mt-2">
                     <h1 className="text-white" style={{ fontSize: "10px" }}>
-                      Price: {sharePrice} ETH /Share
+                      Price / Share: {sharePrice} Ξ
                     </h1>
-                    <h1 className="text-white" style={{ fontSize: "10px" }}>
-                      Volume: {uintConverter(Number(item.volume))} ETH
+                    <h1 className="text-white " style={{ fontSize: "10px" }}>
+                      Volume: {uintConverter(Number(item.volume))} Ξ
                     </h1>
                   </div>
                   <div className="flex justify-end gap-2">
@@ -440,10 +483,17 @@ function FriendTechTool() {
                             />
                           </DialogTitle>
 
-                          <DialogTitle>Mint {item.ftName} shares</DialogTitle>
+                          <DialogTitle>
+                            <a
+                              href={`https://www.friend.tech/${item?.address}`}
+                              target="_blank"
+                            >
+                              Mint {item.ftName} shares
+                            </a>
+                          </DialogTitle>
                           <DialogTitle>
                             <h3
-                              className="mt-2 font-mono"
+                              className="mt-2 font-mono font-light"
                               style={{ fontSize: "10px" }}
                             >
                               Contract: {item.address}
@@ -451,8 +501,11 @@ function FriendTechTool() {
                           </DialogTitle>
 
                           <DialogDescription>
-                            <div className="mt-2">
-                              <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
+                            <div className="mt-1">
+                              <h1
+                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                                style={{ fontSize: "10px" }}
+                              >
                                 Price: {sharePrice} ETH / Share
                               </h1>
                             </div>
@@ -469,7 +522,7 @@ function FriendTechTool() {
                               />
                               <div className="flex justify-center mt-2">
                                 <Button
-                                  className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
+                                  className="border border-slate-600 rounded-xl bg-black hover:bg-white hover:text-black"
                                   onClick={() => {
                                     setTargetShareAddress(item.address);
                                     createBuyTx(item.address);
@@ -507,7 +560,14 @@ function FriendTechTool() {
                             />
                           </DialogTitle>
 
-                          <DialogTitle>Burn {item.ftName} shares</DialogTitle>
+                          <DialogTitle>
+                            <a
+                              href={`https://www.friend.tech/${item?.address}`}
+                              target="_blank"
+                            >
+                              Mint {item.ftName} shares
+                            </a>
+                          </DialogTitle>
                           <DialogTitle>
                             <h3
                               className="mt-2 font-mono"
@@ -517,8 +577,11 @@ function FriendTechTool() {
                             </h3>
                           </DialogTitle>
                           <DialogDescription>
-                            <div className="mt-2">
-                              <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
+                            <div className="">
+                              <h1
+                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                                style={{ fontSize: "12px" }}
+                              >
                                 Price: {sharePrice} ETH / Share
                               </h1>
                             </div>

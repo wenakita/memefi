@@ -16,7 +16,7 @@ function Layout() {
   return (
     <div className="container">
       <center>
-        <NavigationMenu className="border border-slate-400 p-3 bg-black rounded-xl">
+        <NavigationMenu className="mt-2 border border-slate-400 p-3 bg-black rounded-xl">
           <NavigationMenuList className="">
             <NavigationMenuItem className="">
               <HoverCard>
@@ -54,7 +54,7 @@ function Layout() {
               <w3m-network-button />
             </NavigationMenuItem>
             <NavigationMenuItem className="">
-              <w3m-button />
+              <w3m-button balance="hide" label="hello" size={`md`} />
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

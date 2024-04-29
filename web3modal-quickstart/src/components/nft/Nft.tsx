@@ -104,8 +104,6 @@ function Nft() {
         <div className="flex justify-center mt-10">
           <div>
             {nfts.map((nft) => {
-              if (!nft) return null; // Skip rendering if nft is null or undefined
-
               const currentNftSrc = nft.image_url;
               return (
                 <div key={nft.identifier}>
@@ -115,7 +113,9 @@ function Nft() {
                   >
                     <CardHeader>
                       <CardTitle>
-                        <img src={`${currentNftSrc}`} alt="" />
+                        {currentNftSrc ? (
+                          <img src={currentNftSrc} alt="" />
+                        ) : null}
                         <h5 className="text-sm mt-2">{nft.name}</h5>
                       </CardTitle>
                       <CardDescription>
