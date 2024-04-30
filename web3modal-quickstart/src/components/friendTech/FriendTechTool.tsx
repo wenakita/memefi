@@ -581,7 +581,7 @@ function FriendTechTool() {
                                     alt=""
                                     style={{ maxWidth: "5%" }}
                                   />
-                                  <h3>Burn</h3>
+                                  <h3>Mint</h3>
                                 </Button>
                               </div>
                             </div>
