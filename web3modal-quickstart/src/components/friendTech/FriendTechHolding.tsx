@@ -220,18 +220,35 @@ function FriendTechHolding(props: passedParams) {
                         alt=""
                         style={{ maxWidth: "7%" }}
                       />
+                      <p className="mt-2">Mint {shareInfo?.ftName} shares</p>
+                    </div>
+                  </DialogTitle>
+                  <DialogTitle>
+                    <div className="flex justify-start">
                       <a
                         href={`https://www.friend.tech/${shareInfo?.address}`}
                         target="_blank"
                         className="mt-2"
                       >
-                        Mint {shareInfo?.ftName} shares
+                        <span className="flex">
+                          <h3
+                            className="mt-3.5 font-mono"
+                            style={{ fontSize: "10px" }}
+                          >
+                            friend.tech profile
+                          </h3>
+                          <img
+                            src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                            alt=""
+                            style={{ maxWidth: "12%" }}
+                          />
+                        </span>
                       </a>
                     </div>
                   </DialogTitle>
                   <DialogTitle>
                     <h3
-                      className="mt-2 font-mono font-light"
+                      className="font-mono font-light"
                       style={{ fontSize: "10px" }}
                     >
                       Contract: {shareInfo?.address}
@@ -307,18 +324,35 @@ function FriendTechHolding(props: passedParams) {
                         alt=""
                         style={{ maxWidth: "7%" }}
                       />
+                      <p className="mt-2">Burn {shareInfo?.ftName} shares</p>
+                    </div>
+                  </DialogTitle>
+                  <DialogTitle>
+                    <div className="flex justify-start">
                       <a
                         href={`https://www.friend.tech/${shareInfo?.address}`}
                         target="_blank"
                         className="mt-2"
                       >
-                        Burn {shareInfo?.ftName} shares
+                        <span className="flex">
+                          <h3
+                            className="mt-3.5 font-mono"
+                            style={{ fontSize: "10px" }}
+                          >
+                            friend.tech profile
+                          </h3>
+                          <img
+                            src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                            alt=""
+                            style={{ maxWidth: "12%" }}
+                          />
+                        </span>
                       </a>
                     </div>
                   </DialogTitle>
                   <DialogTitle>
                     <h3
-                      className="mt-2 font-mono font-light"
+                      className=" font-mono font-light"
                       style={{ fontSize: "10px" }}
                     >
                       Contract: {shareInfo?.address}

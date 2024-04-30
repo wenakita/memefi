@@ -96,6 +96,16 @@ function FriendTechTool() {
       });
       setIsAlertActive(true);
     },
+    onSuccess(data) {
+      setAlert({
+        title: "Tx Success",
+        description: "successfully bought share reloading now",
+      });
+      setIsAlertActive(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    },
   });
   const {
     data: buyPriceAfterFee,
@@ -118,6 +128,23 @@ function FriendTechTool() {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "unwrap",
+    onError(error) {
+      setAlert({
+        title: "Insufficient Balance",
+        description: "Transaction reverted due to insufficient balance",
+      });
+      setIsAlertActive(true);
+    },
+    onSuccess(data) {
+      setTimeout(() => {
+        window.location.reload();
+        setAlert({
+          title: "Tx Success",
+          description: "successfully bought share",
+        });
+        setIsAlertActive(true);
+      }, 2000);
+    },
   });
 
   useEffect(() => {
@@ -246,18 +273,7 @@ function FriendTechTool() {
           </Button>
         ) : null}
       </div>
-      <div className="flex justify-center gap-2">
-        {/* {address ? (
-          <Button
-            className=" mt-10 border rounded-xl bg-black hover:bg-white hover:text-black"
-            onClick={() => {
-              navigate("/friend/balances");
-            }}
-          >
-            Balance
-          </Button>
-        ) : null} */}
-      </div>
+      <div className="flex justify-center gap-2"></div>
       {searchSuccess ? (
         <div className="flex justify-center mt-10">
           <Card
@@ -316,12 +332,31 @@ function FriendTechTool() {
                               alt=""
                               style={{ maxWidth: "7%" }}
                             />
+                            <p className="mt-2">
+                              Mint {searchResults?.ftName} shares
+                            </p>
+                          </div>
+                        </DialogTitle>
+                        <DialogTitle>
+                          <div className="flex justify-start">
                             <a
                               href={`https://www.friend.tech/${searchResults?.address}`}
                               target="_blank"
                               className="mt-2"
                             >
-                              Mint {searchResults?.ftName} shares
+                              <span className="flex">
+                                <h3
+                                  className="mt-3.5 font-mono"
+                                  style={{ fontSize: "10px" }}
+                                >
+                                  friend.tech profile
+                                </h3>
+                                <img
+                                  src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                  alt=""
+                                  style={{ maxWidth: "12%" }}
+                                />
+                              </span>
                             </a>
                           </div>
                         </DialogTitle>
@@ -406,18 +441,37 @@ function FriendTechTool() {
                               alt=""
                               style={{ maxWidth: "7%" }}
                             />
+                            <p className="mt-2">
+                              Burn {searchResults?.ftName} shares
+                            </p>
+                          </div>
+                        </DialogTitle>
+                        <DialogTitle>
+                          <div className="flex justify-start">
                             <a
                               href={`https://www.friend.tech/${searchResults?.address}`}
                               target="_blank"
                               className="mt-2"
                             >
-                              Burn {searchResults?.ftName} shares
+                              <span className="flex">
+                                <h3
+                                  className="mt-3.5 font-mono"
+                                  style={{ fontSize: "10px" }}
+                                >
+                                  friend.tech profile
+                                </h3>
+                                <img
+                                  src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                  alt=""
+                                  style={{ maxWidth: "12%" }}
+                                />
+                              </span>
                             </a>
                           </div>
                         </DialogTitle>
                         <DialogTitle>
                           <h3
-                            className="mt-2 font-mono"
+                            className="font-mono"
                             style={{ fontSize: "10px" }}
                           >
                             Contract: {searchResults?.address}
@@ -475,6 +529,7 @@ function FriendTechTool() {
           <div className="flex justify-center mb-5"></div>
           {trendingResults.map((item: FriendTechItem, index) => {
             const sharePrice = uintConverter(item.displayPrice);
+            console.log(item);
             return (
               <div
                 key={index}
@@ -531,18 +586,35 @@ function FriendTechTool() {
                                 alt=""
                                 style={{ maxWidth: "7%" }}
                               />
+                              <p className="mt-2">Mint {item?.ftName} shares</p>
+                            </div>
+                          </DialogTitle>
+                          <DialogTitle>
+                            <div className="flex justify-start">
                               <a
                                 href={`https://www.friend.tech/${item?.address}`}
                                 target="_blank"
                                 className="mt-2"
                               >
-                                Mint {item?.ftName} shares
+                                <span className="flex">
+                                  <h3
+                                    className="mt-3.5 font-mono"
+                                    style={{ fontSize: "10px" }}
+                                  >
+                                    friend.tech profile
+                                  </h3>
+                                  <img
+                                    src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                    alt=""
+                                    style={{ maxWidth: "12%" }}
+                                  />
+                                </span>
                               </a>
                             </div>
                           </DialogTitle>
                           <DialogTitle>
                             <h3
-                              className="mt-2 font-mono font-light"
+                              className="font-mono font-light"
                               style={{ fontSize: "10px" }}
                             >
                               Contract: {item.address}
@@ -599,7 +671,7 @@ function FriendTechTool() {
                             createSellTx(item.address);
                           }}
                         >
-                          Burn
+                          burn
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="border-slate-500 rounded-xl bg-black">
@@ -624,19 +696,38 @@ function FriendTechTool() {
                                   alt=""
                                   style={{ maxWidth: "7%" }}
                                 />
-                                <a
-                                  href={`https://www.friend.tech/${item?.address}`}
-                                  target="_blank"
-                                  className="mt-2"
-                                >
+                                <h3 className="mt-2">
                                   Burn {item?.ftName} shares
-                                </a>
+                                </h3>
                               </div>
                             </a>
                           </DialogTitle>
                           <DialogTitle>
+                            <div className="flex justify-start">
+                              <a
+                                href={`https://www.friend.tech/${item?.address}`}
+                                target="_blank"
+                                className="mt-2"
+                              >
+                                <span className="flex">
+                                  <h3
+                                    className="mt-3.5 font-mono"
+                                    style={{ fontSize: "10px" }}
+                                  >
+                                    friend.tech profile
+                                  </h3>
+                                  <img
+                                    src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                    alt=""
+                                    style={{ maxWidth: "12%" }}
+                                  />
+                                </span>
+                              </a>
+                            </div>
+                          </DialogTitle>
+                          <DialogTitle>
                             <h3
-                              className="mt-2 font-mono"
+                              className="font-mono"
                               style={{ fontSize: "10px" }}
                             >
                               Contract: {item.address}
