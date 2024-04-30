@@ -54,7 +54,7 @@ function Layout() {
               <w3m-network-button />
             </NavigationMenuItem>
             <NavigationMenuItem className="">
-              <w3m-button balance="hide" label="hello" size={`md`} />
+              <w3m-button balance="hide" label="Connect Wallet" size={`sm`} />
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>

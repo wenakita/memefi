@@ -106,36 +106,40 @@ function Nft() {
             {nfts.map((nft) => {
               const currentNftSrc = nft.image_url;
               return (
-                <div key={nft.identifier}>
-                  <Card
-                    style={{ width: "12rem" }}
-                    className="rounded-xl bg-black border-slate-500"
-                  >
-                    <CardHeader>
-                      <CardTitle>
-                        {currentNftSrc ? (
-                          <img src={currentNftSrc} alt="" />
-                        ) : null}
-                        <h5 className="text-sm mt-2">{nft.name}</h5>
-                      </CardTitle>
-                      <CardDescription>
-                        {nft.description && (
-                          <h5 className="text-xs mt-1">{nft.description}</h5>
-                        )}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardFooter className="flex justify-center">
-                      <Button
-                        onClick={() => {
-                          handleMint(nft.identifier);
-                        }}
-                        className="border rounded-xl bg-black hover:bg-white hover:text-black"
-                      >
-                        Mint
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                </div>
+                <Card
+                  key={nft.identifier}
+                  style={{ width: "12rem" }}
+                  className="rounded-xl bg-black border-slate-500"
+                >
+                  <CardHeader>
+                    <CardTitle>
+                      {currentNftSrc ? (
+                        <img src={currentNftSrc} alt="" />
+                      ) : null}
+                      <h5 className="text-sm mt-2">{nft.name}</h5>
+                    </CardTitle>
+                    <CardDescription>
+                      {nft.description && (
+                        <h5
+                          className="text-xs mt-1"
+                          style={{ fontSize: "5px" }}
+                        >
+                          {nft.description}
+                        </h5>
+                      )}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardFooter className="flex justify-center">
+                    <Button
+                      onClick={() => {
+                        handleMint(nft.identifier);
+                      }}
+                      className="border rounded-xl bg-black hover:bg-white hover:text-black"
+                    >
+                      Mint
+                    </Button>
+                  </CardFooter>
+                </Card>
               );
             })}
           </div>

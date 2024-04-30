@@ -240,7 +240,7 @@ function FriendTechSwap() {
           <div className="mb-2">
             <div className="flex justify-star mb-1">
               <img
-                src="https://www.friend.tech/friendtechlogo.png"
+                src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46"
                 alt=""
                 style={{ maxWidth: "12%" }}
               />
@@ -277,8 +277,6 @@ function FriendTechSwap() {
                 } else if (shouldUnwrap) {
                   setSellAmount(e.target.value);
                 }
-
-                console.log(e.target.value);
               }}
             />
           </div>
@@ -333,3 +331,4 @@ function FriendTechSwap() {
 }
 
 export default FriendTechSwap;
+//https://api.basescan.org/api?module=logs&action=getLogs&address=0xa24e1426Bc37d0D1a9e7037f5De3322E800F2D7d&fromBlock=1844947&toBlock=1845947&page=1&offset=1000&apikey=VAAGUVZPXRQZHUITAPCE6B5VNFZPHEF44U

@@ -239,6 +239,18 @@ function FriendTechTool() {
           Trending
         </Button>
       </div>
+      <div className="flex justify-center mt-3">
+        {address ? (
+          <Button
+            className="border rounded-xl bg-black hover:bg-white hover:text-black"
+            onClick={() => {
+              navigate("/friend/balances");
+            }}
+          >
+            Balance
+          </Button>
+        ) : null}
+      </div>
       <div className="flex justify-center gap-2">
         {/* {address ? (
           <Button
@@ -437,7 +449,7 @@ function FriendTechTool() {
             return (
               <div
                 key={index}
-                className="border border-slate-500 rounded-xl p-3 bg-black mb-3"
+                className="border border-slate-500 rounded-xl p-2 bg-black mb-3"
               >
                 <div className="md:grid md:grid-cols-3 auto-cols-max gap-2">
                   <div className="flex justify-start gap-2">
@@ -458,9 +470,24 @@ function FriendTechTool() {
                     <h1 className="text-white" style={{ fontSize: "10px" }}>
                       Price / Share: {sharePrice} Ξ
                     </h1>
-                    <h1 className="text-white " style={{ fontSize: "10px" }}>
+                    <h1 className="text-white" style={{ fontSize: "10px" }}>
                       Volume: {uintConverter(Number(item.volume))} Ξ
                     </h1>
+                    {/* <div className="flex justify-start gap-1">
+                      <img
+                        src="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png"
+                        alt=""
+                        style={{ maxWidth: "7%" }}
+                      />
+                      <a
+                        href={`https://twitter.com/${item?.twitterName}`}
+                        target="_blank"
+                        className="text-white "
+                        style={{ fontSize: "10px" }}
+                      >
+                        View profile
+                      </a>
+                    </div> */}
                   </div>
                   <div className="flex justify-end gap-2">
                     <Dialog>

@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useContractRead, useAccount } from "wagmi";
+
 import { NavLink, useNavigate } from "react-router-dom";
 import calcAbi from "@/abi/calcCaABI";
 function Home() {
