@@ -214,12 +214,20 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
 
                   <DialogTitle>
-                    <a
-                      href={`https://www.friend.tech/${shareInfo?.address}`}
-                      target="_blank"
-                    >
-                      Mint {shareInfo?.ftName} shares
-                    </a>
+                    <div className="flex justify-start gap-1">
+                      <img
+                        src="https://i.pinimg.com/originals/49/02/54/4902548424a02117b7913c17d2e379ff.gif"
+                        alt=""
+                        style={{ maxWidth: "7%" }}
+                      />
+                      <a
+                        href={`https://www.friend.tech/${shareInfo?.address}`}
+                        target="_blank"
+                        className="mt-2"
+                      >
+                        Mint {shareInfo?.ftName} shares
+                      </a>
+                    </div>
                   </DialogTitle>
                   <DialogTitle>
                     <h3
@@ -257,7 +265,12 @@ function FriendTechHolding(props: passedParams) {
                           createBuyTx();
                         }}
                       >
-                        Mint
+                        <img
+                          src="https://i.pinimg.com/originals/49/02/54/4902548424a02117b7913c17d2e379ff.gif"
+                          alt=""
+                          style={{ maxWidth: "5%" }}
+                        />
+                        <h3>Mint</h3>
                       </Button>
                     </div>
                   </div>
@@ -288,12 +301,20 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
 
                   <DialogTitle>
-                    <a
-                      href={`https://www.friend.tech/${shareInfo?.address}`}
-                      target="_blank"
-                    >
-                      Burn {shareInfo?.ftName} shares
-                    </a>
+                    <div className="flex justify-start gap-1">
+                      <img
+                        src="https://media3.giphy.com/media/J2awouDsf23R2vo2p5/giphy.gif?cid=6c09b95271qkr9h7zeqhzcchzf0g93pzapi9qzlx1f8ha35c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=e"
+                        alt=""
+                        style={{ maxWidth: "7%" }}
+                      />
+                      <a
+                        href={`https://www.friend.tech/${shareInfo?.address}`}
+                        target="_blank"
+                        className="mt-2"
+                      >
+                        Burn {shareInfo?.ftName} shares
+                      </a>
+                    </div>
                   </DialogTitle>
                   <DialogTitle>
                     <h3
@@ -331,7 +352,12 @@ function FriendTechHolding(props: passedParams) {
                           createSellTx();
                         }}
                       >
-                        Burn
+                        <img
+                          src="https://media3.giphy.com/media/J2awouDsf23R2vo2p5/giphy.gif?cid=6c09b95271qkr9h7zeqhzcchzf0g93pzapi9qzlx1f8ha35c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=e"
+                          alt=""
+                          style={{ maxWidth: "5%" }}
+                        />
+                        <h3>Burn</h3>
                       </Button>
                     </div>
                   </div>
