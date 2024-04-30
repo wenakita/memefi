@@ -14,11 +14,12 @@ import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-
+import { useNavigate } from "react-router-dom";
 interface passedParams {
   id: string;
 }
 function FriendTechHolding(props: passedParams) {
+  const navigate = useNavigate();
   interface FriendTechSearch {
     id: number;
     address: string;
@@ -81,10 +82,14 @@ function FriendTechHolding(props: passedParams) {
     data: unWrapData,
     isSuccess: isUnwrapSuccess,
   } = useContractWrite({
-    //constract that you use to wrap and unwrap tokens
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "unwrap",
+    onSuccess(data) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    },
   });
 
   const {
@@ -96,13 +101,11 @@ function FriendTechHolding(props: passedParams) {
     address: "0xbeea45F16D512a01f7E2a3785458D4a7089c8514",
     abi: friendTechABI,
     functionName: "wrap",
-    // onError(error) {
-    //   setAlert({
-    //     title: "Insufficient Balance",
-    //     description: "Transaction reverted due to insufficient balance",
-    //   });
-    //   setIsAlertActive(true);
-    // },
+    onSuccess(data) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    },
   });
 
   useEffect(() => {
@@ -167,7 +170,7 @@ function FriendTechHolding(props: passedParams) {
         </div>
         <div className="">
           <div className="">
-            <h3 className="font-light" style={{ fontSize: "10px" }}>
+            <h3 className="font-regular" style={{ fontSize: "10px" }}>
               Balance:{" "}
               {Number(shareBalanceResult) > 1
                 ? Number(shareBalanceResult) + " shares"
@@ -175,7 +178,7 @@ function FriendTechHolding(props: passedParams) {
             </h3>
           </div>
           <div>
-            <h3 className="font-light" style={{ fontSize: "10px" }}>
+            <h3 className="font-regular" style={{ fontSize: "10px" }}>
               Volume:{unintConverter(shareInfo?.displayPrice)} Ξ
             </h3>
           </div>
