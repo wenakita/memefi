@@ -27,7 +27,6 @@ function Home() {
     args: ["0x7b202496C103DA5BEDFE17aC8080B49Bd0a333f1"],
   });
 
-  console.log(supplyResults);
   useEffect(() => {
     const currentSupply = Number(supplyResults);
     const currentPrice = (currentSupply * currentSupply) / 16000;

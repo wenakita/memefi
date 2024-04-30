@@ -26,7 +26,6 @@ interface NftData {
 
 function Nft() {
   const apiKey = process.env.OP_KEY || "";
-  console.log(process.env.OP_KEY);
   const [alert, setAlert] = useState<{
     title: string;
     description: string;
@@ -60,7 +59,6 @@ function Nft() {
     axios
       .get("https://api.opensea.io/api/v2/collection/goddog-2/nfts", options)
       .then(function (response) {
-        console.log(response.data.nfts);
         setNfts(response.data.nfts);
       })
       .catch(function (error) {
@@ -69,7 +67,6 @@ function Nft() {
   }, []);
 
   function handleMint(nftId: string) {
-    console.log(nftId);
     if (!address) {
       setAlert({
         title: "Error",
@@ -82,13 +79,9 @@ function Nft() {
       });
       // completeTransaction(nftId);
     }
-    console.log(config);
   }
 
-  function completeTransaction(nftId: string) {
-    console.log(nftId);
-    console.log(address);
-  }
+  function completeTransaction(nftId: string) {}
 
   return (
     <div className="mt-10 container flex justify-center">

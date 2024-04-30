@@ -14,7 +14,11 @@ import { parseEther } from "viem";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-function FriendTechHolding(props: unknown) {
+
+interface passedParams {
+  id: string;
+}
+function FriendTechHolding(props: passedParams) {
   interface FriendTechSearch {
     id: number;
     address: string;
@@ -109,11 +113,9 @@ function FriendTechHolding(props: unknown) {
   }, []);
 
   useEffect(() => {
-    console.log(shareAddress);
     axios
       .get(`https://prod-api.kosetto.com/users/${shareAddress}`)
       .then(function (results) {
-        console.log(results.data);
         setShareInfo(results.data);
       })
       .catch(function (error) {
@@ -128,7 +130,6 @@ function FriendTechHolding(props: unknown) {
   function createBuyTx() {
     if (gotBuyPrice) {
       const finalBuyPrice = String(unintConverter(buyPriceAfterFee));
-      console.log(finalBuyPrice);
 
       if (finalBuyPrice !== "0") {
         wrap?.({
@@ -244,7 +245,6 @@ function FriendTechHolding(props: unknown) {
                       className="rounded-xl border-slate-500"
                       onChange={(e) => {
                         setTokenAmount(e.target.value);
-                        console.log(e.target.value);
                       }}
                     />
                     <div className="flex justify-center mt-2">
@@ -319,7 +319,6 @@ function FriendTechHolding(props: unknown) {
                       className="rounded-xl border-slate-500"
                       onChange={(e) => {
                         setTokenAmount(e.target.value);
-                        console.log(e.target.value);
                       }}
                     />
                     <div className="flex justify-center mt-2">

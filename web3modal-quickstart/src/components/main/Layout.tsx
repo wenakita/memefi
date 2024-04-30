@@ -9,10 +9,15 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import { Outlet } from "react-router-dom";
+
 function Layout() {
+  useEffect(() => {
+    console.log("Enter address for a surprise");
+  }, []);
   return (
     <div className="container">
       <center>

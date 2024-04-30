@@ -122,7 +122,6 @@ function FriendTechTool() {
     axios
       .get("https://prod-api.kosetto.com/lists/trending")
       .then(function (results) {
-        console.log(results.data.users);
         setTrendingResults(results.data.users);
       })
       .catch(function (error) {
@@ -134,7 +133,6 @@ function FriendTechTool() {
     axios
       .get(`https://prod-api.kosetto.com/users/${targetSearch}`)
       .then(function (results) {
-        console.log(results.data);
         setSearchResults(results.data);
         setSearchSuccess(true);
       })
@@ -151,9 +149,7 @@ function FriendTechTool() {
 
   function calculateFinalBuyAmount() {
     let finalAmount;
-    console.log(tokenAmount);
     if (isNaN(Number(tokenAmount))) {
-      console.log("not valid");
       finalAmount = 0;
     } else {
       finalAmount = Number(buyPriceAfterFee) / 10 ** 18;
@@ -163,8 +159,6 @@ function FriendTechTool() {
 
   function createBuyTx(sharesAddress: unknown) {
     const finalBuyETH = calculateFinalBuyAmount();
-
-    console.log(finalBuyETH);
 
     if (finalBuyETH !== 0) {
       wrap?.({
@@ -219,7 +213,6 @@ function FriendTechTool() {
           className="rounded-xl border-slate-500 bg-black"
           onChange={(e) => {
             setTargetSearch(e.target.value);
-            console.log(e.target.value);
           }}
         />
         <Button
@@ -341,7 +334,6 @@ function FriendTechTool() {
                               className="rounded-xl border-slate-500"
                               onChange={(e) => {
                                 setTokenAmount(e.target.value);
-                                console.log(e.target.value);
                               }}
                             />
                             <div className="flex justify-center mt-2">
@@ -414,7 +406,6 @@ function FriendTechTool() {
                               className="rounded-xl border-slate-500"
                               onChange={(e) => {
                                 setTokenAmount(e.target.value);
-                                console.log(e.target.value);
                               }}
                             />
                             <div className="flex justify-center mt-2">
@@ -544,7 +535,6 @@ function FriendTechTool() {
                                 className="rounded-xl border-slate-500"
                                 onChange={(e) => {
                                   setTokenAmount(e.target.value);
-                                  console.log(e.target.value);
                                 }}
                               />
                               <div className="flex justify-center mt-2">
@@ -620,7 +610,6 @@ function FriendTechTool() {
                                 className="rounded-xl border-slate-500"
                                 onChange={(e) => {
                                   setTokenAmount(e.target.value);
-                                  console.log(e.target.value);
                                 }}
                               />
                               <div className="flex justify-center mt-2">
