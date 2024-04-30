@@ -195,10 +195,22 @@ function FriendTechHolding(props: passedParams) {
           <Dialog>
             <DialogTrigger>
               <Button
-                className="border border-slate-500 bg-green-500 rounded-xl"
+                className="border border-slate-500 rounded-xl font-bold bg-black hover:bg-green-600 w-20"
                 style={{ fontSize: "10px" }}
               >
-                Mint
+                <span className="flex justify-center gap-2">
+                  <h3 style={{ fontSize: "11px" }} className="mt-0.5">
+                    Mint
+                  </h3>
+                  <img
+                    src={
+                      "https://i.pinimg.com/originals/49/02/54/4902548424a02117b7913c17d2e379ff.gif"
+                    }
+                    className=""
+                    alt=""
+                    style={{ maxWidth: "50%" }}
+                  />
+                </span>
               </Button>
             </DialogTrigger>
             <DialogContent className="border-slate-500 rounded-xl bg-black">
@@ -299,10 +311,20 @@ function FriendTechHolding(props: passedParams) {
           <Dialog>
             <DialogTrigger>
               <Button
-                className="border border-slate-500 bg-red-500 rounded-xl"
+                className="border border-slate-500 rounded-xl font-bold bg-black hover:bg-red-600 w-20"
                 style={{ fontSize: "10px" }}
               >
-                Burn
+                <span className="flex justify-center gap-2">
+                  <h3 style={{ fontSize: "12px" }}>Burn</h3>
+                  <img
+                    src={
+                      "https://media3.giphy.com/media/J2awouDsf23R2vo2p5/giphy.gif?cid=6c09b95271qkr9h7zeqhzcchzf0g93pzapi9qzlx1f8ha35c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=e"
+                    }
+                    className=""
+                    alt=""
+                    style={{ maxWidth: "40%" }}
+                  />
+                </span>
               </Button>
             </DialogTrigger>
             <DialogContent className="border-slate-500 rounded-xl bg-black">
