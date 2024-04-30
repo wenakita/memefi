@@ -71,7 +71,7 @@ function FriendBalances() {
   return (
     <div className="container mt-20">
       <div className="flex justify-between">
-        <h1 className="font-mono">Share Balances:</h1>
+        <h1 className="font-mono">Portfolio Balances: NFT</h1>
         <Button
           className="border rounded-xl bg-black hover:bg-white hover:text-black"
           onClick={() => {

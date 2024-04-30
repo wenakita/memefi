@@ -47,6 +47,7 @@ function FriendTechTool() {
     followerCount: number; // Assuming this is a number
     rank: number; // Assuming this is a number
     volume: string; // Assuming this is a string representation of a numeric value
+    ftPfpUrl: string;
   }
   interface FriendTechSearch {
     id: number;
@@ -65,6 +66,7 @@ function FriendTechTool() {
     followerCount: number;
     ftUsername: string;
     rank: number;
+    ftPfpUrl: string;
   }
   const {
     data: shareBalanceResult,
@@ -264,7 +266,7 @@ function FriendTechTool() {
           >
             <CardHeader>
               <img
-                src={searchResults?.twitterPfpUrl}
+                src={searchResults?.ftPfpUrl}
                 alt=""
                 className="border border-slate-500 rounded-full w-36"
               />
@@ -301,7 +303,7 @@ function FriendTechTool() {
                       <DialogHeader>
                         <DialogTitle>
                           <img
-                            src={searchResults?.twitterPfpUrl}
+                            src={searchResults?.ftPfpUrl}
                             alt=""
                             className="rounded-full mb-2"
                             style={{ maxWidth: "15%" }}
@@ -374,7 +376,7 @@ function FriendTechTool() {
                     <DialogContent className="border-slate-500 rounded-xl bg-black">
                       <DialogHeader>
                         <img
-                          src={searchResults?.twitterPfpUrl}
+                          src={searchResults?.ftPfpUrl}
                           alt=""
                           className="border border-slate-500 rounded-full mb-2"
                           style={{ maxWidth: "15%" }}
@@ -445,7 +447,7 @@ function FriendTechTool() {
                 <div className="md:grid md:grid-cols-3 auto-cols-max gap-2">
                   <div className="flex justify-start gap-2">
                     <img
-                      src={item.twitterPfpUrl}
+                      src={item.ftPfpUrl}
                       alt=""
                       style={{ maxWidth: "15%" }}
                       className="rounded-full"
@@ -494,7 +496,7 @@ function FriendTechTool() {
                         <DialogHeader>
                           <DialogTitle>
                             <img
-                              src={item.twitterPfpUrl}
+                              src={item.ftPfpUrl}
                               alt=""
                               className="rounded-full mb-2"
                               style={{ maxWidth: "15%" }}
@@ -570,7 +572,7 @@ function FriendTechTool() {
                         <DialogHeader>
                           <DialogTitle>
                             <img
-                              src={item.twitterPfpUrl}
+                              src={item.ftPfpUrl}
                               alt=""
                               className="rounded-full mb-2"
                               style={{ maxWidth: "15%" }}
