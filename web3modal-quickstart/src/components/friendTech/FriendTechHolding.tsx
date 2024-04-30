@@ -287,6 +287,15 @@ function FriendTechHolding(props: passedParams) {
                         setTokenAmount(e.target.value);
                       }}
                     />
+                    <h3
+                      className="flex justify-end mt-1 me-2"
+                      style={{ fontSize: "10px" }}
+                    >
+                      Balance:{" "}
+                      {Number(shareBalanceResult) > 1
+                        ? Number(shareBalanceResult) + " shares"
+                        : Number(shareBalanceResult) + " share"}
+                    </h3>
                     <div className="flex justify-center mt-2">
                       <Button
                         className="border border-slate-600 rounded-xl bg-black hover:bg-white hover:text-black"
@@ -401,6 +410,15 @@ function FriendTechHolding(props: passedParams) {
                         setTokenAmount(e.target.value);
                       }}
                     />
+                    <h3
+                      className="flex justify-end mt-1 me-2"
+                      style={{ fontSize: "10px" }}
+                    >
+                      Balance:{" "}
+                      {Number(shareBalanceResult) > 1
+                        ? Number(shareBalanceResult) + " shares"
+                        : Number(shareBalanceResult) + " share"}
+                    </h3>
                     <div className="flex justify-center mt-2">
                       <Button
                         className="border border-slate-600 rounded-xl bg-black hover:bg-white hover:text-black"
