@@ -179,15 +179,15 @@ function FriendTechHolding(props: passedParams) {
           </div>
           <div>
             <h3 className="font-regular" style={{ fontSize: "10px" }}>
-              Volume:{unintConverter(shareInfo?.displayPrice)} Ξ
-            </h3>
-          </div>
-          <div>
-            <h3 className="font-light" style={{ fontSize: "10px" }}>
               Value :
               {Number(shareBalanceResult) *
                 unintConverter(shareInfo?.displayPrice)}{" "}
               Ξ
+            </h3>
+          </div>
+          <div>
+            <h3 className="font-regular" style={{ fontSize: "10px" }}>
+              Volume:{unintConverter(shareInfo?.displayPrice)} Ξ
             </h3>
           </div>
         </div>
