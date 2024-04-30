@@ -374,7 +374,7 @@ function FriendTechTool() {
                         </DialogTitle>
                         <DialogTitle>
                           <h3
-                            className="mt-2 font-mono"
+                            className="font-mono flex justify-start"
                             style={{ fontSize: "10px" }}
                           >
                             Contract: {searchResults?.address}
@@ -648,7 +648,7 @@ function FriendTechTool() {
                           </DialogTitle>
                           <DialogTitle>
                             <h3
-                              className="font-mono font-light"
+                              className="font-mono font-light flex justify-start"
                               style={{ fontSize: "10px" }}
                             >
                               Contract: {item.address}
@@ -767,7 +767,7 @@ function FriendTechTool() {
                           </DialogTitle>
                           <DialogTitle>
                             <h3
-                              className="font-mono"
+                              className="font-mono flex justify-start"
                               style={{ fontSize: "10px" }}
                             >
                               Contract: {item.address}

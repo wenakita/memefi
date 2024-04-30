@@ -260,7 +260,7 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
                   <DialogTitle>
                     <h3
-                      className="font-mono font-light"
+                      className="font-mono font-light flex justify-start"
                       style={{ fontSize: "10px" }}
                     >
                       Contract: {shareInfo?.address}
@@ -383,7 +383,7 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
                   <DialogTitle>
                     <h3
-                      className=" font-mono font-light"
+                      className=" font-mono font-light flex justify-start"
                       style={{ fontSize: "10px" }}
                     >
                       Contract: {shareInfo?.address}
