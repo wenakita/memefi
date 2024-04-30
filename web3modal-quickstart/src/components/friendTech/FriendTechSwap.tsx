@@ -220,7 +220,7 @@ function FriendTechSwap() {
       });
     }
   }
-  const txButtonLabel = shouldWrap === true ? "Wrap Token" : "Unwrap Token";
+  const txButtonLabel = shouldWrap === true ? "Mint" : "Burn";
   if (mintSuccess) {
     setAlert({
       title: "Tx Success",
@@ -316,12 +316,23 @@ function FriendTechSwap() {
             />
 
             <button
-              className="border p-1 rounded-xl bg-stone-950 hover:bg-white hover:text-black font-lighter"
+              className="border p-2 rounded-xl border-slate-500 bg-stone-950 hover:bg-white hover:text-black font-lighter w-20"
               onClick={() => {
                 preTx();
               }}
             >
-              {txButtonLabel}
+              <span className="flex justify-center gap-2">
+                <h3 style={{ fontSize: "14px" }}>{txButtonLabel}</h3>
+                <img
+                  src={
+                    shouldWrap
+                      ? "https://i.pinimg.com/originals/49/02/54/4902548424a02117b7913c17d2e379ff.gif"
+                      : "https://media3.giphy.com/media/J2awouDsf23R2vo2p5/giphy.gif?cid=6c09b95271qkr9h7zeqhzcchzf0g93pzapi9qzlx1f8ha35c&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=e"
+                  }
+                  alt=""
+                  style={{ maxWidth: "30%" }}
+                />
+              </span>
             </button>
           </div>
         </div>
