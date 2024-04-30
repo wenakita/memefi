@@ -382,7 +382,7 @@ function FriendTechTool() {
                         </DialogTitle>
                         <DialogDescription>
                           <div className="mt-2">
-                            <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
+                            <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start">
                               Price:{" "}
                               {uintConverter(searchResults?.displayPrice)}
                               ETH / Share
@@ -500,8 +500,8 @@ function FriendTechTool() {
                           </h3>
                         </DialogTitle>
                         <DialogDescription>
-                          <div className="mt-2">
-                            <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 ">
+                          <div className="">
+                            <h1 className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start">
                               Price:{" "}
                               {uintConverter(searchResults?.displayPrice)} ETH /
                               Share
@@ -656,9 +656,9 @@ function FriendTechTool() {
                           </DialogTitle>
 
                           <DialogDescription>
-                            <div className="mt-1">
+                            <div className="">
                               <h1
-                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start"
                                 style={{ fontSize: "10px" }}
                               >
                                 Price: {sharePrice} ETH / Share
@@ -776,7 +776,7 @@ function FriendTechTool() {
                           <DialogDescription>
                             <div className="">
                               <h1
-                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                                className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start"
                                 style={{ fontSize: "12px" }}
                               >
                                 Price: {sharePrice} ETH / Share

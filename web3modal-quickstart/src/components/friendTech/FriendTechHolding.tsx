@@ -268,9 +268,9 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
                 </DialogTitle>
                 <DialogDescription>
-                  <div className="mt-1">
+                  <div className="">
                     <h1
-                      className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                      className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start"
                       style={{ fontSize: "10px" }}
                     >
                       Price: {unintConverter(shareInfo?.displayPrice)} ETH /
@@ -391,9 +391,9 @@ function FriendTechHolding(props: passedParams) {
                   </DialogTitle>
                 </DialogTitle>
                 <DialogDescription>
-                  <div className="mt-1">
+                  <div className="">
                     <h1
-                      className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 "
+                      className="border border-b-stone-400 border-t-0 border-l-0 border-r-0 flex justify-start"
                       style={{ fontSize: "10px" }}
                     >
                       Price: {unintConverter(shareInfo?.displayPrice)} ETH /
