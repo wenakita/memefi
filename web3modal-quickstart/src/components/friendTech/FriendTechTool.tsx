@@ -265,6 +265,11 @@ function FriendTechTool() {
       const finalpushed: ChartsValues = {
         price: currentBuyEthAmount,
         date: currentEventTimestamp,
+        ethAmount: item.ethAmount,
+        shareAmount: item?.shareAmount,
+        createdAt: item?.createdAt,
+        isBuy: item?.isBuy,
+        currentPrice: item?.currentPrice,
       };
       console.log(currentEventTimestamp);
       if (shareBuyAmount === 1 && item?.isBuy) {
