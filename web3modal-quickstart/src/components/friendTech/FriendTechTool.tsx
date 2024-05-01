@@ -82,9 +82,9 @@ function FriendTechTool() {
   }
 
   interface ChartsValues {
-    ethAmount: number;
-    shareAmount: number;
-    createdAt: string;
+    ethAmount: string;
+    shareAmount: string;
+    createdAt: number;
     isBuy: boolean;
     price: number;
     date: string;
