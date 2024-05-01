@@ -15,6 +15,14 @@ import {
   useContractWrite,
   usePrepareContractWrite,
 } from "wagmi";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import Alerts from "../main/Alerts";
 
 interface NftData {
@@ -97,6 +105,7 @@ function Nft() {
         <div className="flex justify-center mt-10">
           <div>
             {nfts.map((nft) => {
+              console.log(nft);
               const currentNftSrc = nft.image_url;
               return (
                 <Card

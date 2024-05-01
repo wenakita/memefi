@@ -73,7 +73,7 @@ function FriendBalances() {
       <div className="flex justify-between">
         <h1 className="font-mono">Portfolio Balances: NFT</h1>
         <Button
-          className="border rounded-xl bg-black hover:bg-white hover:text-black"
+          className="border border-slate-500 rounded-xl bg-black hover:bg-white hover:text-black"
           onClick={() => {
             navigate("/friend/find");
           }}

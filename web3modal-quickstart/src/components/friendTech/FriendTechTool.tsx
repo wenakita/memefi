@@ -23,6 +23,17 @@ import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useNavigate } from "react-router-dom";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+import {
+  AreaChart,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Area,
+  CartesianGrid,
+  ResponsiveContainer,
+} from "recharts";
+import { ScrollArea } from "@/components/ui/scroll-area";
 function FriendTechTool() {
   const navigate = useNavigate();
   const { address } = useAccount();
@@ -38,6 +49,7 @@ function FriendTechTool() {
   const [tokenAmount, setTokenAmount] = useState("");
   const [isAlertActive, setIsAlertActive] = useState(false);
   const [alert, setAlert] = useState({ title: "", description: "" });
+  const [mainChartData, setMainChartData] = useState<ChartsValues[]>([]);
   interface FriendTechItem {
     twitterPfpUrl: string;
     ftUsername: string;
@@ -68,6 +80,22 @@ function FriendTechTool() {
     rank: number;
     ftPfpUrl: string;
   }
+
+  interface ChartsValues {
+    ethAmount: number;
+    shareAmount: number;
+    createdAt: string;
+    isBuy: boolean;
+    price: number;
+    date: string;
+    currentPrice: string;
+  }
+
+  interface PriceDataMain {
+    price: number;
+    date: string;
+  }
+
   const {
     data: shareBalanceResult,
     isError: isShareBalanceError,
@@ -211,6 +239,40 @@ function FriendTechTool() {
     const formattedTarget = Number(target);
     const buyPrice = formattedTarget / 10 ** 18;
     return buyPrice;
+  }
+  function getShareEvents(target: unknown) {
+    axios
+      .get(`https://prod-api.kosetto.com/friends-activity/${target}`)
+      .then(function (results) {
+        console.log(results.data.events);
+        prepareChartData(results?.data.events);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  function prepareChartData(eventData: ChartsValues[]) {
+    const priceData: PriceDataMain[] = [];
+    const temp = new Date().toString();
+    console.log(temp);
+
+    eventData.map((item: ChartsValues) => {
+      const currentBuyEthAmount: number = uintConverter(item?.ethAmount);
+      const shareBuyAmount = Number(item?.shareAmount);
+      const currentEventTimestamp: string = new Date(
+        item?.createdAt
+      ).toISOString();
+      const finalpushed: PriceDataMain = {
+        price: currentBuyEthAmount,
+        date: currentEventTimestamp,
+      };
+      console.log(currentEventTimestamp);
+      if (shareBuyAmount === 1 && item?.isBuy) {
+        priceData.push(finalpushed);
+      }
+
+      setMainChartData(priceData);
+    });
   }
   return (
     <div className="mt-10 container">
@@ -422,6 +484,173 @@ function FriendTechTool() {
                       </DialogHeader>
                     </DialogContent>
                   </Dialog>
+                  <Dialog>
+                    <DialogTrigger>
+                      <Button
+                        className="border border-slate-500 rounded-xl font-bold bg-black hover:bg-green-600 w-20"
+                        style={{ fontSize: "8px" }}
+                        onClick={() => {
+                          getShareEvents(searchResults?.address);
+                        }}
+                      >
+                        <span className="flex justify-center gap-2">
+                          <h3 style={{ fontSize: "11px" }} className="mt-0.5">
+                            Chart
+                          </h3>
+                          <img
+                            src={
+                              "https://media3.giphy.com/media/hZE5xoaM0Oxw4xiqH7/giphy.gif?cid=82a1493b8d9p1o6zrl0qwsz7ve7kglvu0015yeopmy895rvt&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+                            }
+                            className=""
+                            alt=""
+                            style={{ maxWidth: "40%" }}
+                          />
+                        </span>
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="border-slate-500 rounded-xl bg-black">
+                      <DialogHeader>
+                        <DialogTitle>
+                          <div>
+                            <img
+                              src={searchResults?.ftPfpUrl}
+                              alt=""
+                              className="rounded-full"
+                              style={{ maxWidth: "15%" }}
+                            />
+                          </div>
+                          <div className="flex justify-start mt-3 gap-1">
+                            <img
+                              src="https://media3.giphy.com/media/hZE5xoaM0Oxw4xiqH7/giphy.gif?cid=82a1493b8d9p1o6zrl0qwsz7ve7kglvu0015yeopmy895rvt&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+                              alt=""
+                              style={{ maxWidth: "3.5%" }}
+                            />
+                            <h3 style={{ fontSize: "12px" }} className="mt-0.5">
+                              {searchResults?.ftUsername} price history
+                            </h3>
+                          </div>
+                          <div className="flex justify-start">
+                            <a
+                              href={`https://www.friend.tech/${searchResults?.address}`}
+                              target="_blank"
+                              className=""
+                            >
+                              <span className="flex">
+                                <h3
+                                  className="mt-3.5 font-mono"
+                                  style={{ fontSize: "10px" }}
+                                >
+                                  friend.tech profile
+                                </h3>
+                                <img
+                                  src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                  alt=""
+                                  style={{ maxWidth: "12%" }}
+                                />
+                              </span>
+                            </a>
+                          </div>
+                          <div>
+                            <h3
+                              className="font-mono font-light flex justify-start"
+                              style={{ fontSize: "8px" }}
+                            >
+                              Contract: {searchResults?.address}
+                            </h3>
+                          </div>
+                        </DialogTitle>
+
+                        <DialogDescription className="">
+                          <div className="mt-2">
+                            {mainChartData !== undefined &&
+                            mainChartData.length > 1 ? (
+                              //here we only displat
+                              <>
+                                <div className="ms-auto me-auto mt-2">
+                                  <AreaChart
+                                    width={400}
+                                    height={200}
+                                    data={mainChartData}
+                                    className=""
+                                  >
+                                    <XAxis dataKey="date" />
+
+                                    <YAxis dataKey="price" />
+
+                                    <CartesianGrid />
+
+                                    <Tooltip />
+                                    <Area
+                                      type={"monotone"}
+                                      dataKey="price"
+                                      fill=""
+                                    />
+                                    <Area
+                                      type={"monotone"}
+                                      dataKey="date"
+                                      fill=""
+                                    />
+                                  </AreaChart>
+                                </div>
+                                <ScrollArea className="h-20 w-50 rounded-xl p-1">
+                                  {mainChartData.map(
+                                    (item: ChartsValues, index: number) => {
+                                      return (
+                                        <div key={index} className="bg-black">
+                                          <div className="grid grid-cols-3">
+                                            <div className="border border-stone-800 rounded-md h-10">
+                                              <h3
+                                                className="text-green-500 font-bold flex justify-start mt-3 ms-2"
+                                                style={{ fontSize: "10px" }}
+                                              >
+                                                {item?.price}
+                                              </h3>
+                                            </div>
+                                            <div className="border border-stone-800 rounded-md h-10">
+                                              <h3
+                                                className="text-green-500 font-bold ms-2 mt-3"
+                                                style={{ fontSize: "12px" }}
+                                              >
+                                                Buy
+                                              </h3>
+                                            </div>
+                                            <div className="border border-stone-800 text-green-500 font-bold rounded-md h-10">
+                                              <h3
+                                                style={{ fontSize: "8px" }}
+                                                className="ms-1"
+                                              >
+                                                {item?.date}
+                                              </h3>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
+                                </ScrollArea>
+                              </>
+                            ) : (
+                              <div className="flex justify-center gap-2">
+                                <img
+                                  src="https://forums.frontier.co.uk/attachments/1000012145-png.391294/"
+                                  alt=""
+                                  style={{ maxWidth: "6%" }}
+                                />
+                                <h3
+                                  className="mt-2"
+                                  style={{ fontSize: "10px" }}
+                                >
+                                  This user does not have enough trades to
+                                  provide chart data
+                                </h3>
+                              </div>
+                            )}
+                          </div>
+                        </DialogDescription>
+                      </DialogHeader>
+                    </DialogContent>
+                  </Dialog>
+
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button
@@ -695,6 +924,176 @@ function FriendTechTool() {
                         </DialogHeader>
                       </DialogContent>
                     </Dialog>
+                    <Dialog>
+                      <DialogTrigger>
+                        <Button
+                          className="border border-slate-500 rounded-xl font-bold bg-black hover:bg-green-600 w-20 mb-1"
+                          style={{ fontSize: "8px" }}
+                          onClick={() => {
+                            getShareEvents(item.address);
+                          }}
+                        >
+                          <span className="flex justify-center gap-2">
+                            <h3 style={{ fontSize: "11px" }} className="mt-0.5">
+                              Chart
+                            </h3>
+                            <img
+                              src={
+                                "https://media3.giphy.com/media/hZE5xoaM0Oxw4xiqH7/giphy.gif?cid=82a1493b8d9p1o6zrl0qwsz7ve7kglvu0015yeopmy895rvt&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+                              }
+                              className=""
+                              alt=""
+                              style={{ maxWidth: "40%" }}
+                            />
+                          </span>
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="border-slate-500 rounded-xl bg-black">
+                        <DialogHeader>
+                          <DialogTitle>
+                            <div>
+                              <img
+                                src={item?.ftPfpUrl}
+                                alt=""
+                                className="rounded-full"
+                                style={{ maxWidth: "15%" }}
+                              />
+                            </div>
+                            <div className="flex justify-start mt-3 gap-1">
+                              <img
+                                src="https://media3.giphy.com/media/hZE5xoaM0Oxw4xiqH7/giphy.gif?cid=82a1493b8d9p1o6zrl0qwsz7ve7kglvu0015yeopmy895rvt&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+                                alt=""
+                                style={{ maxWidth: "3.5%" }}
+                              />
+                              <h3
+                                style={{ fontSize: "12px" }}
+                                className="mt-0.5"
+                              >
+                                {item?.ftUsername} price history
+                              </h3>
+                            </div>
+                            <div className="flex justify-start">
+                              <a
+                                href={`https://www.friend.tech/${item?.address}`}
+                                target="_blank"
+                                className=""
+                              >
+                                <span className="flex">
+                                  <h3
+                                    className="mt-3.5 font-mono"
+                                    style={{ fontSize: "10px" }}
+                                  >
+                                    friend.tech profile
+                                  </h3>
+                                  <img
+                                    src="https://freepngimg.com/thumb/twitter/108250-badge-twitter-verified-download-free-image-thumb.png"
+                                    alt=""
+                                    style={{ maxWidth: "12%" }}
+                                  />
+                                </span>
+                              </a>
+                            </div>
+                            <div>
+                              <h3
+                                className="font-mono font-light flex justify-start"
+                                style={{ fontSize: "8px" }}
+                              >
+                                Contract: {item?.address}
+                              </h3>
+                            </div>
+                          </DialogTitle>
+
+                          <DialogDescription className="">
+                            <div className="mt-2">
+                              {mainChartData !== undefined &&
+                              mainChartData.length > 1 ? (
+                                //here we only displat
+                                <>
+                                  <div className="ms-auto me-auto mt-2">
+                                    <AreaChart
+                                      width={400}
+                                      height={200}
+                                      data={mainChartData}
+                                      className=""
+                                    >
+                                      <XAxis dataKey="date" />
+
+                                      <YAxis dataKey="price" />
+
+                                      <CartesianGrid />
+
+                                      <Tooltip />
+                                      <Area
+                                        type={"monotone"}
+                                        dataKey="price"
+                                        fill=""
+                                      />
+                                      <Area
+                                        type={"monotone"}
+                                        dataKey="date"
+                                        fill=""
+                                      />
+                                    </AreaChart>
+                                  </div>
+                                  <ScrollArea className="h-20 w-50 rounded-xl p-1">
+                                    {mainChartData.map(
+                                      (item: ChartsValues, index: number) => {
+                                        return (
+                                          <div key={index} className="bg-black">
+                                            <div className="grid grid-cols-3">
+                                              <div className="border border-stone-800 rounded-md h-10">
+                                                <h3
+                                                  className="text-green-500 font-bold flex justify-start mt-3 ms-2"
+                                                  style={{ fontSize: "10px" }}
+                                                >
+                                                  {item?.price}
+                                                </h3>
+                                              </div>
+                                              <div className="border border-stone-800 rounded-md h-10">
+                                                <h3
+                                                  className="text-green-500 font-bold ms-2 mt-3"
+                                                  style={{ fontSize: "12px" }}
+                                                >
+                                                  Buy
+                                                </h3>
+                                              </div>
+                                              <div className="border border-stone-800 text-green-500 font-bold rounded-md h-10">
+                                                <h3
+                                                  style={{ fontSize: "8px" }}
+                                                  className="ms-1"
+                                                >
+                                                  {item?.date}
+                                                </h3>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    )}
+                                  </ScrollArea>
+                                </>
+                              ) : (
+                                <div className="flex justify-center gap-2">
+                                  <img
+                                    src="https://forums.frontier.co.uk/attachments/1000012145-png.391294/"
+                                    alt=""
+                                    style={{ maxWidth: "6%" }}
+                                  />
+                                  <h3
+                                    className="mt-2"
+                                    style={{ fontSize: "10px" }}
+                                  >
+                                    This user does not have enough trades to
+                                    provide chart data
+                                  </h3>
+                                </div>
+                              )}
+                            </div>
+                          </DialogDescription>
+                        </DialogHeader>
+                      </DialogContent>
+                    </Dialog>
+
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
