@@ -252,7 +252,7 @@ function FriendTechTool() {
       });
   }
   function prepareChartData(eventData: ChartsValues[]) {
-    const priceData: PriceDataMain[] = [];
+    const priceData: ChartsValues[] = [];
     const temp = new Date().toString();
     console.log(temp);
 
@@ -262,7 +262,7 @@ function FriendTechTool() {
       const currentEventTimestamp: string = new Date(
         item?.createdAt
       ).toISOString();
-      const finalpushed: PriceDataMain = {
+      const finalpushed: ChartsValues = {
         price: currentBuyEthAmount,
         date: currentEventTimestamp,
       };
