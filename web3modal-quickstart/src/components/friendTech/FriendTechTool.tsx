@@ -23,6 +23,7 @@ import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useNavigate } from "react-router-dom";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+import { usePrivy } from "@privy-io/react-auth";
 import {
   AreaChart,
   XAxis,
@@ -35,8 +36,11 @@ import {
 } from "recharts";
 import { ScrollArea } from "@/components/ui/scroll-area";
 function FriendTechTool() {
+  const { ready, authenticated, user } = usePrivy();
   const navigate = useNavigate();
-  const { address } = useAccount();
+  let address;
+  const { address: walletconnectAddy } = useAccount();
+
   const [currentTokenAddress, setCurrentTokenAddress] = useState("");
   const [targetSearch, setTargetSearch] = useState("");
   const [searchSuccess, setSearchSuccess] = useState(false);
@@ -174,6 +178,16 @@ function FriendTechTool() {
       }, 2000);
     },
   });
+
+  useEffect(() => {
+    if (authenticated) {
+      const wallet = user?.wallet;
+      address = wallet?.address;
+    } else {
+      address = walletconnectAddy;
+    }
+    console.log(address);
+  }, []);
 
   useEffect(() => {
     axios
@@ -329,16 +343,14 @@ function FriendTechTool() {
         </Button>
       </div>
       <div className="flex justify-center mt-3">
-        {address ? (
-          <Button
-            className="border rounded-xl bg-black hover:bg-white hover:text-black"
-            onClick={() => {
-              navigate("/friend/balances");
-            }}
-          >
-            Balance
-          </Button>
-        ) : null}
+        <Button
+          className="border rounded-xl bg-black hover:bg-white hover:text-black"
+          onClick={() => {
+            navigate("/friend/balances");
+          }}
+        >
+          Balance
+        </Button>
       </div>
       <div className="flex justify-center gap-2"></div>
       {searchSuccess ? (

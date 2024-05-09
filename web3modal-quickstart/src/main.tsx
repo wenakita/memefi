@@ -3,6 +3,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import { PrivyProvider } from "@privy-io/react-auth";
+import { useRouter } from "next/router";
 import {
   arbitrum,
   avalanche,
@@ -42,7 +46,7 @@ const chains = [
 ];
 
 // 1. Get projectID at https://cloud.walletconnect.com
-
+console.log(import.meta.env.VITE_NEXT_PUBLIC_PRIVY_APP_ID || "");
 const projectId = import.meta.env.VITE_PROJECT_ID || "";
 
 const metadata = {
@@ -60,7 +64,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
       <BrowserRouter>
-        <App />
+        <PrivyProvider
+          appId={import.meta.env.VITE_NEXT_PUBLIC_PRIVY_APP_ID || ""}
+        >
+          <App />
+        </PrivyProvider>
       </BrowserRouter>
     </WagmiConfig>
   </React.StrictMode>

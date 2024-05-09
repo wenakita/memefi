@@ -58,32 +58,48 @@ function Home() {
           </CardTitle>
           <CardDescription className="">
             <div className="flex justify-start gap-2 mt-3">
-              <Button className="border rounded-xl bg-stone-900">
-                <a href="https://warpcast.com/~/channel/goddog" target="_blank">
-                  <span className="flex justify-start gap-2">
+              <Button
+                className="border border-slate-500 rounded-xl bg-stone-900"
+                onClick={() => {
+                  navigate("/friend/find");
+                }}
+              >
+                <p>
+                  <span className="flex justify-center gap-2">
                     <img
-                      src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-white.png?raw=true"
+                      src="https://miro.medium.com/v2/resize:fit:296/1*Juq6BdPq_ZaihhSok1sh7w.png"
                       alt=""
                       style={{ maxWidth: "15%" }}
                     />
-                    <p className="mt-1 text-xs">/Goddog</p>
+                    <p className="mt-1 font-light" style={{ fontSize: "8px" }}>
+                      Mint & Burn erc-1155s
+                    </p>
                   </span>
-                </a>
+                </p>
               </Button>
-              <Button className="border rounded-xl bg-stone-900">
-                <a
-                  href="https://app.uniswap.org/swap?outputCurrency=0xDDf7d080C82b8048BAAe54e376a3406572429b4e&chain=base"
-                  target="_blank"
-                >
-                  Buy Now
-                </a>
+              <Button
+                className="border border-slate-500 rounded-xl bg-stone-900"
+                onClick={() => {
+                  navigate("/friend");
+                }}
+              >
+                <span className="flex justify-center gap-1">
+                  <img
+                    src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46"
+                    alt=""
+                    style={{ maxWidth: "25%" }}
+                  />
+                  <p style={{ fontSize: "8px" }} className="mt-0.5">
+                    Mint Goddog shares
+                  </p>
+                </span>
               </Button>
             </div>
-            <div className="flex justify-center mt-3 mb-2 gap-2">
+            <div className="flex justify-center mt-4 mb-2 gap-1">
               <img
-                src="https://www.friend.tech/friendtechlogo.png"
+                src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46"
                 alt=""
-                style={{ maxWidth: "7%" }}
+                style={{ maxWidth: "8%" }}
               />
               <p className="mt-1" style={{ fontSize: "10px" }}>
                 {address

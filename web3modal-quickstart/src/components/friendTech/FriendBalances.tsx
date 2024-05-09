@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import FriendTechHolding from "./FriendTechHolding";
 import axios from "axios";
 import { Button } from "../ui/button";
+import { usePrivy } from "@privy-io/react-auth";
+
 function FriendBalances() {
+  const [address, setAddress] = useState("");
   interface FriendTechBalance {
     userShareHoldings: string;
     friendTechUrl: unknown;
@@ -16,7 +19,7 @@ function FriendBalances() {
   }
   let currentIdentifier;
   const navigate = useNavigate();
-  const { address } = useAccount();
+  const { address: walletconnectAddy } = useAccount();
   const [currentShareIds, setCurrentShareIds] = useState<string[]>([]);
   const [currentIds, setCurrentIds] = useState([]);
   const [currentHoldings, setCurrentHoldings] = useState([]);
@@ -27,6 +30,7 @@ function FriendBalances() {
   //use uri function to slice the part of the url that shows the contract address
   //example response fro contract: https://api.wrap.sh/friends/0x7b202496c103da5bedfe17ac8080b49bd0a333f1
   const [currentArg, setCurrentArg] = useState("");
+  const { ready, authenticated, user } = usePrivy();
 
   let mainId;
 
@@ -51,7 +55,18 @@ function FriendBalances() {
           console.log(error);
         });
     }
-  }, []);
+  }, [address]);
+  useEffect(() => {
+    if (ready && authenticated) {
+      const wallet = user?.wallet;
+      const addy = String(wallet?.address);
+      console.log(addy);
+      setAddress(addy);
+    } else {
+      setAddress(String(walletconnectAddy));
+    }
+    console.log(address);
+  });
 
   async function handleResponse(results: any) {
     const targetShareIds: any = [];
