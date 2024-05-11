@@ -3,10 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { WagmiConfig } from "wagmi";
-import type { AppProps } from "next/app";
-import Head from "next/head";
 import { PrivyProvider } from "@privy-io/react-auth";
-import { useRouter } from "next/router";
 import {
   arbitrum,
   avalanche,
@@ -60,16 +57,30 @@ const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 
 createWeb3Modal({ wagmiConfig, projectId, chains, defaultChain: base });
 
+const handleLogin = (user: any) => {
+  console.log(`Welcome back ${user}`);
+};
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <WagmiConfig config={wagmiConfig}>
-      <BrowserRouter>
-        <PrivyProvider
-          appId={import.meta.env.VITE_NEXT_PUBLIC_PRIVY_APP_ID || ""}
-        >
+      <PrivyProvider
+        appId={import.meta.env.VITE_NEXT_PUBLIC_PRIVY_APP_ID || ""}
+        onSuccess={handleLogin}
+        config={{
+          embeddedWallets: {
+            createOnLogin: "users-without-wallets",
+          },
+          appearance: {
+            theme: "dark",
+          },
+          loginMethods: ["wallet", "farcaster", "email"],
+        }}
+      >
+        <BrowserRouter>
           <App />
-        </PrivyProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </PrivyProvider>
     </WagmiConfig>
   </React.StrictMode>
 );

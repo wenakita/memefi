@@ -84,7 +84,7 @@ function Layout() {
                   className="order border-slate-500 rounded-xl"
                 >
                   <div className="flex justify-center overflow-hidden">
-                    <h3 className="text-[10px] ">Privy Logout</h3>
+                    <h3 className="text-[10px] ">{address}</h3>
                   </div>
                 </Button>
               ) : (
