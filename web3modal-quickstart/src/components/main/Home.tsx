@@ -102,9 +102,6 @@ function Home() {
               <a href="https://telegra.ph/GODDOG-Official-Whitepaper-06-01" target="_blank">
                 Whitepaper
               </a>
-              <a href="https://warpcast.com/~/channel/goddog" target="_blank">
-                Warpcast
-              </a>
               <a href="https://x.com/goddog_official" target="_blank">
                 Twitter
               </a>
