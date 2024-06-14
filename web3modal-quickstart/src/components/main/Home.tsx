@@ -51,7 +51,7 @@ function Home() {
             <span className="ms-2">
               <h6 className="text-md">$oooOOO</h6>
               <h6 className="mt-3 text-sm">
-                Your omnichain adventure awaits at /goddog with suprises.
+                Your omnichain adventure awaits at /goddog with surprises.
                 Explore and earn across multiple chains!
               </h6>
             </span>
@@ -99,8 +99,8 @@ function Home() {
               className="flex justify-center mt-4 gap-2 underline text-slate-400"
               style={{ fontSize: "10px" }}
             >
-              <a href="https://linktr.ee/goddog69" target="_blank">
-                LinkTree
+              <a href="https://telegra.ph/GODDOG-Official-Whitepaper-06-01" target="_blank">
+                Whitepaper
               </a>
               <a href="https://warpcast.com/~/channel/goddog" target="_blank">
                 Warpcast
@@ -108,7 +108,9 @@ function Home() {
               <a href="https://x.com/goddog_official" target="_blank">
                 Twitter
               </a>
-              <a href="#">Notion</a>
+              <a href="https://t.me/goddog_official" target="_blank">
+                Telegram
+              </a>
             </div>
           </CardDescription>
         </CardHeader>
