@@ -111,6 +111,9 @@ function Home() {
               <a href="https://t.me/goddog_official" target="_blank">
                 Telegram
               </a>
+              <a href="https://telegra.ph/What-is-FrenMint-06-03" target="_blank">
+                What is FrenMint?
+              </a>
             </div>
           </CardDescription>
         </CardHeader>
