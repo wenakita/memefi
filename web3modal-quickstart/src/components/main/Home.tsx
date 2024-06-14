@@ -34,12 +34,12 @@ function Home() {
   }, []);
 
   return (
-    <div className="mt-10 container flex justify-center">
+    <div className="mt-[120px] container flex justify-center">
       <Card
-        className="p-3 border border-slate-400 rounded-xl bg-black"
+        className="p-3 border border-neutral-600 rounded-xl bg-black"
         style={{ width: "20rem" }}
       >
-        <CardHeader className="border border-slate-400 p-4 rounded-xl">
+        <CardHeader className=" border border-neutral-600 p-4 rounded-xl">
           <CardTitle className="">
             <span>
               <img
@@ -58,55 +58,43 @@ function Home() {
           </CardTitle>
           <CardDescription className="">
             <div className="flex justify-start gap-2 mt-3">
-              <Button
-                className="border border-slate-500 rounded-xl bg-stone-900"
-                onClick={() => {
-                  navigate("/friend/find");
-                }}
+              <a
+                type="button"
+                href="https://warpcast.com/~/channel/goddog"
+                className="border border-neutral-700 rounded-xl bg-stone-900 p-1"
               >
                 <p>
-                  <span className="flex justify-center gap-2">
+                  <span className="flex justify-start gap-2">
                     <img
-                      src="https://miro.medium.com/v2/resize:fit:296/1*Juq6BdPq_ZaihhSok1sh7w.png"
+                      src="https://github.com/vrypan/farcaster-brand/blob/main/icons/icon-transparent/transparent-white.png?raw=true"
                       alt=""
                       style={{ maxWidth: "15%" }}
+                      className="mt-1"
                     />
-                    <p className="mt-1 font-light" style={{ fontSize: "8px" }}>
-                      Mint & Burn erc-1155s
+                    <p className="mt-1.5 font-bold" style={{ fontSize: "8px" }}>
+                      Warpcast
                     </p>
                   </span>
                 </p>
-              </Button>
-              <Button
-                className="border border-slate-500 rounded-xl bg-stone-900"
-                onClick={() => {
-                  navigate("/friend");
-                }}
+              </a>
+              <a
+                type="button"
+                href="https://frenmint.goddog.io/#/"
+                className="border border-neutral-700 rounded-xl bg-stone-900 p-2"
               >
-                <span className="flex justify-center gap-1">
+                <span className="flex justify-start gap-1 w-[80px]">
                   <img
-                    src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46"
+                    src="https://i.postimg.cc/qqhQyJgK/friendmint-removebg-preview.png"
                     alt=""
-                    style={{ maxWidth: "25%" }}
+                    className="w-5 h-5 rounded-full"
                   />
-                  <p style={{ fontSize: "8px" }} className="mt-0.5">
-                    Mint Goddog shares
+                  <p style={{ fontSize: "8px" }} className="mt-0.5 font-bold">
+                    FrenMint
                   </p>
                 </span>
-              </Button>
+              </a>
             </div>
-            <div className="flex justify-center mt-4 mb-2 gap-1">
-              <img
-                src="https://dd.dexscreener.com/ds-data/tokens/base/0xddf7d080c82b8048baae54e376a3406572429b4e.png?size=lg&key=18ea46"
-                alt=""
-                style={{ maxWidth: "8%" }}
-              />
-              <p className="mt-1" style={{ fontSize: "10px" }}>
-                {address
-                  ? currentPrice + " ETH / Friend.tech share"
-                  : "Connect wallet to view share price"}
-              </p>
-            </div>
+
             <div
               className="flex justify-center mt-4 gap-2 underline text-slate-400"
               style={{ fontSize: "10px" }}
@@ -114,30 +102,13 @@ function Home() {
               <a href="https://linktr.ee/goddog69" target="_blank">
                 LinkTree
               </a>
-              <a
-                href=""
-                onClick={() => {
-                  navigate("/friend/find");
-                }}
-              >
-                Friend.Tech Swap
+              <a href="https://warpcast.com/~/channel/goddog" target="_blank">
+                Warpcast
               </a>
-              <a
-                href=""
-                onClick={() => {
-                  navigate("/friend");
-                }}
-              >
-                Friend.Tech
+              <a href="https://x.com/goddog_official" target="_blank">
+                Twitter
               </a>
-              <a
-                href=""
-                onClick={() => {
-                  navigate("/nft");
-                }}
-              >
-                NFT
-              </a>
+              <a href="#">Notion</a>
             </div>
           </CardDescription>
         </CardHeader>
@@ -148,7 +119,7 @@ function Home() {
           <a
             href="https://interchain.axelar.dev/base/0xDDf7d080C82b8048BAAe54e376a3406572429b4e"
             target="_blank"
-            className="underline text-slate-200"
+            className="underline text-stone-400"
           >
             0xDDf7d080C82b8048BAAe54e376a3406572429b4e
           </a>
