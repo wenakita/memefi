@@ -40,16 +40,16 @@ function Home() {
         style={{ width: "20rem" }}
       >
         <CardHeader className=" border border-neutral-600 p-4 rounded-xl">
-          <CardTitle className="">
+          <CardTitle className="https://ivory-accurate-pig-375.mypinata.cloud/ipfs/QmNxKrGR1ZJ3bKYdyYXf8tuTtKF3zaDShmmFdFABfXFdJQ?pinataGatewayToken=Yn-z4l06l9aFDk0xk-gQmyfHbcCrqKcsqSbuEqjtGUOHqRX5DEWFe-t-7SxbqmMf">
             <span>
               <img
-                src="https://ivory-accurate-pig-375.mypinata.cloud/ipfs/QmNxKrGR1ZJ3bKYdyYXf8tuTtKF3zaDShmmFdFABfXFdJQ?pinataGatewayToken=Yn-z4l06l9aFDk0xk-gQmyfHbcCrqKcsqSbuEqjtGUOHqRX5DEWFe-t-7SxbqmMf"
+                src=""
                 alt=""
                 style={{ maxWidth: "30%" }}
               />
             </span>
             <span className="ms-2">
-              <h6 className="text-md">$oooOOO</h6>
+              <h6 className="text-md">Welcome to GODDOG ($oooOOO) Landing Page</h6>
               <h6 className="mt-3 text-sm">
                 Your omnichain adventure awaits at /goddog with surprises.
                 Explore and earn across multiple chains!
