@@ -49,7 +49,7 @@ function Home() {
               />
             </span>
             <span className="ms-2">
-              <h6 className="text-md">Welcome to GODDOG ($oooOOO) Landing Page</h6>
+              <h6 className="text-md">GODDOG $oooOOO</h6>
               <h6 className="mt-3 text-sm">
                 Your omnichain adventure awaits at /goddog with surprises.
                 Explore and earn across multiple chains!
