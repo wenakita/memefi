@@ -40,10 +40,10 @@ function Home() {
         style={{ width: "20rem" }}
       >
         <CardHeader className=" border border-neutral-600 p-4 rounded-xl">
-          <CardTitle className="https://ivory-accurate-pig-375.mypinata.cloud/ipfs/QmNxKrGR1ZJ3bKYdyYXf8tuTtKF3zaDShmmFdFABfXFdJQ?pinataGatewayToken=Yn-z4l06l9aFDk0xk-gQmyfHbcCrqKcsqSbuEqjtGUOHqRX5DEWFe-t-7SxbqmMf">
+          <CardTitle className="">
             <span>
               <img
-                src=""
+                src="https://ivory-accurate-pig-375.mypinata.cloud/ipfs/QmNxKrGR1ZJ3bKYdyYXf8tuTtKF3zaDShmmFdFABfXFdJQ?pinataGatewayToken=Yn-z4l06l9aFDk0xk-gQmyfHbcCrqKcsqSbuEqjtGUOHqRX5DEWFe-t-7SxbqmMf""
                 alt=""
                 style={{ maxWidth: "30%" }}
               />
