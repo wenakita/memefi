@@ -34,16 +34,6 @@ const Barsik = () => {
           </CardTitle>
         </CardHeader>
         <CardDescription>
-          <div className="flex justify-center mt-4 gap-2">
-            <Button
-              className="bg-primary-500 hover:bg-primary-600"
-              onClick={() => {
-                navigate("/barsik/migrate");
-              }}
-            >
-              Migrate
-            </Button>
-          </div>
           <div
             className="flex justify-center mt-4 gap-2 underline text-slate-400"
             style={{ fontSize: "10px" }}
