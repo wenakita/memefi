@@ -72,17 +72,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// src/Barsik.tsx
-import React from 'react';
-
-const Barsik = () => {
-  return (
-    <div>
-      <h1>Barsik Page</h1>
-      {/* Add your Barsik page content here */}
-    </div>
-  );
-};
-
-export default Barsik;
