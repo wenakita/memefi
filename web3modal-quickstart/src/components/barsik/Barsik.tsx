@@ -7,10 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import React from 'react';
 
-const Home = () => {
-  const navigate = useNavigate();
-
+const Barsik = () => {
   return (
     <div className="mt-[120px] container flex justify-center">
       <Card
@@ -71,4 +70,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Barsik;
